@@ -1,0 +1,6 @@
+{
+  "name": "SubwayMK",
+  "description": "Interactive virtual subway and bus route map editor with zoom, pan, and custom styling tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

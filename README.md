@@ -35,6 +35,7 @@ flowchart TD
         DREAM["🌙 dream-capture<br/>(AI Dream Journal & Studio)"]
         CHAT["🔒 private-chat-app<br/>(Secure Ephemeral Chat)"]
         OSU["🎮 osu-selective-downloader<br/>(Chrome Extension)"]
+        SUBWAY["🚇 subway (SubwayMK)<br/>(Interactive Transit Map Editor)"]
     end
 
     subgraph NativeDesktop ["💻 Desktop & Native Utilities"]
@@ -54,6 +55,7 @@ flowchart TD
     BCG <-->|Realtime Sync| SUPA
     TRPG <-->|Prompt & Stream| GEMINI
     DREAM <-->|AI Analysis| GEMINI
+    SUBWAY -.->|GenAI Extension| GEMINI
     TRPG <-->|Session Sync| SUPA
     JUJE <-->|Realtime Sync| SUPA
     CHAT <-->|Realtime & Auth| SUPA
@@ -74,6 +76,7 @@ flowchart TD
 | [**`osu-selective-downloader`**](./osu-selective-downloader/) | **Extension** | Chrome Extension (V3), JavaScript, HTML5, Vite | osu! 웹사이트에서 원하는 난이도(Diff)만 골라서 가볍게 다운로드할 수 있는 브라우저 확장 프로그램 | [README](./osu-selective-downloader/README.md) |
 | [**`juje-web`**](./juje-web/) | **Web / Game** | Next.js 16, React 19, Supabase Realtime, TailwindCSS v4 | 실시간 룸 생성, 라이어/추리 모드, 타이머 및 상황별 사운드 이펙트를 제공하는 보드게임 웹 클라이언트 | [README](./juje-web/README.md) |
 | [**`private-chat-app`**](./private-chat-app/) | **Web / Chat** | Vite, React 19, TypeScript, Supabase Auth/Realtime, Oxlint | 초경량 고속 빌드 기반의 프라이빗 실시간 암호화 대화 및 알림음 지원 채팅 웹 | [README](./private-chat-app/README.md) |
+| [**`subway`**](./subway/) | **Web / Graphics** | React 19, Konva (`react-konva`), Vite, Tailwind CSS v4, TS | 인터랙티브 가상 지하철 및 버스 노선도 벡터 드로잉 웹 에디터 (10도 스냅, 역 도장, PNG 추출) | [README](./subway/README.md) |
 | [**`discord-auto-mute`**](./discord-auto-mute/) | **Desktop** | Python 3, `speech_recognition`, `pyaudio`, `pywin32`, `keyboard` | 마이크 음성을 인식하여 게임 중 손대지 않고 디스코드 음소거 및 통화 종료를 자동 실행하는 백그라운드 런처 | [README](./discord-auto-mute/README.md) |
 | [**`win-search-tool`**](./win-search-tool/) | **Desktop** | Python 3, Tkinter, `watchdog`, `chardet`, PyInstaller | Windows 시스템 트레이에 상주하며 로컬 문서의 텍스트 본문과 파일명을 초고속 실시간 검색하는 데스크톱 툴 | [README](./win-search-tool/README.md) |
 | [**`virtual-monitor-tools`**](./virtual-monitor-tools/) | **System** | Python (`mss`), PowerShell, Windows Driver | 가상 디스플레이(Virtual Display Driver)의 활성화 여부를 진단하고 UAC 권한으로 복구하는 시스템 도구 모음 | [README](./virtual-monitor-tools/README.md) |
@@ -100,6 +103,7 @@ antigravity-workspace/
 ├── 📂 juje-web/                  # '주제어' 추리 파티게임 웹 클라이언트 (Next.js 16)
 ├── 📂 kamueumgok/                # Electron + Next.js 데스크톱 음악 플레이어 (가무음곡)
 ├── 📂 private-chat-app/          # 초경량 실시간 보안 채팅 웹 (Vite + React 19)
+├── 📂 subway/                    # 가상 지하철·노선도 벡터 드로잉 에디터 (React 19 + Konva)
 ├── 📂 trpg-master-ai/            # Gemini AI 기반 인터랙티브 TRPG 마스터 (Next.js 16)
 ├── 📂 win-search-tool/           # 트레이 로컬 파일/내용 실시간 검색기 (Python)
 └── 📂 virtual-monitor-tools/     # 가상 모니터 드라이버 진단 및 복구 스크립트
@@ -132,9 +136,9 @@ pip install -r requirements.txt
 python main.py
 ```
 
-### 3. Web & AI 프로젝트 실행 (`trpg-master-ai`, `dream-capture`, `juje-web` 등)
+### 3. Web & AI 프로젝트 실행 (`trpg-master-ai`, `dream-capture`, `subway`, `juje-web` 등)
 ```bash
-cd trpg-master-ai
+cd subway
 npm install
 npm run dev
 ```
