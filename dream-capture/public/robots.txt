@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jaehofilm.vercel.app/sitemap.xml

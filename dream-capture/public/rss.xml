@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>이재호 필름</title>
+    <link>https://jaehofilm.vercel.app/</link>
+    <description>감성 스냅 및 개인 화보 촬영 예약</description>
+    <language>ko-kr</language>
+    <item>
+      <title>이재호 필름 홈페이지 오픈</title>
+      <link>https://jaehofilm.vercel.app/</link>
+      <description>작가 이재호의 스냅 촬영 예약 사이트가 오픈되었습니다.</description>
+      <pubDate>Sat, 28 Feb 2026 00:00:00 +0900</pubDate>
+    </item>
+  </channel>
+</rss>
