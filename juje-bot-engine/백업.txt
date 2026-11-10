@@ -1,0 +1,241 @@
+import discord
+from discord.ext import commands
+import asyncio
+import random
+import os
+import time
+
+# 1. 봇 설정
+intents = discord.Intents.default()
+intents.message_content = True
+bot = commands.Bot(command_prefix='!', intents=intents)
+bot.remove_command('help')
+
+games = {}
+
+@bot.event
+async def on_ready():
+    print(f'🔥 {bot.user.name} (스피드 모드 장착) 준비 완료!')
+    print(f'   - 주제 파일: {os.listdir("./주제") if os.path.exists("./주제") else "폴더 없음!"}')
+
+# ==========================================
+# 🧩 도움말
+# ==========================================
+@bot.command()
+async def help(ctx):
+    embed = discord.Embed(title="📜 주제어 서바이벌 봇 도움말", color=0x00ff00)
+    embed.add_field(name="🎮 게임 시작", value="**`!게임시작`**: 10초간 참가자를 모집하고 자동 시작.", inline=False)
+    embed.add_field(name="🙋‍♂️ 참가 방법", value="모집 시간(10초) 안에 **`!참여`** 입력.", inline=False)
+    embed.add_field(name="☠️ 게임 규칙", value="1. **순서대로** 제한시간 내에 정답을 입력하세요.\n2. **기본 7초**, **15턴 넘으면 5초**로 빨라집니다!\n3. 틀려도 시간 안에는 **무한 재시도** 가능!\n4. **시간이 0초가 되면 즉시 탈락!**", inline=False)
+    embed.add_field(name="💯 점수", value="글자 수 × 10점", inline=False)
+    await ctx.send(embed=embed)
+
+# ==========================================
+# 🔊 소리 재생
+# ==========================================
+async def play_sound(ctx, filename):
+    if not ctx.author.voice: return None
+    channel = ctx.author.voice.channel
+    
+    if ctx.voice_client is None:
+        vc = await channel.connect()
+    else:
+        vc = ctx.voice_client
+        if vc.channel != channel:
+            await vc.move_to(channel)
+    
+    if os.path.exists(filename):
+        if vc.is_playing(): vc.stop()
+        vc.play(discord.FFmpegPCMAudio(filename))
+    return vc
+
+async def stop_sound(ctx):
+    if ctx.voice_client and ctx.voice_client.is_playing():
+        ctx.voice_client.stop()
+
+# ==========================================
+# 🚀 게임 모집
+# ==========================================
+@bot.command()
+async def 게임시작(ctx):
+    cid = ctx.channel.id
+    if cid in games:
+        await ctx.send("❌ 이미 진행 중입니다. `!중단`을 먼저 하세요.")
+        return
+
+    if not os.path.exists("./주제") or not os.listdir("./주제"):
+        await ctx.send("❌ '주제' 폴더가 비어있습니다.")
+        return
+
+    try:
+        file_list = [f for f in os.listdir("./주제") if f.endswith(".txt")]
+        selected_file = random.choice(file_list)
+        topic_name = selected_file.replace('.txt', '')
+        with open(f"./주제/{selected_file}", "r", encoding="utf-8") as f:
+            raw_words = [line.strip() for line in f if line.strip()]
+            valid_words = {w.replace(" ", ""): w for w in raw_words}
+    except:
+        await ctx.send("❌ 파일 오류!")
+        return
+
+    games[cid] = {
+        "status": "waiting",
+        "topic": topic_name,
+        "valid_words": valid_words,
+        "used_words": set(),
+        "players": [],
+        "scores": {}
+    }
+
+    try: await play_sound(ctx, "intro.mp3")
+    except: pass
+
+    embed = discord.Embed(title="📢 참가자 모집! (10초)", description=f"주제: **[{topic_name}]**\n\n지금 바로 **`!참여`**를 입력하세요!", color=0xFFA500)
+    await ctx.send(embed=embed)
+    
+    await asyncio.sleep(10)
+
+    if cid in games:
+        if len(games[cid]["players"]) == 0:
+            await ctx.send("😅 참가자가 없어서 취소되었습니다.")
+            del games[cid]
+            if ctx.voice_client: await ctx.voice_client.disconnect()
+        else:
+            await start_relay_game(ctx)
+
+@bot.command()
+async def 참여(ctx):
+    cid = ctx.channel.id
+    if cid in games and games[cid]["status"] == "waiting":
+        user = ctx.author
+        if user not in games[cid]["players"]:
+            games[cid]["players"].append(user)
+            games[cid]["scores"][user.name] = 0
+            await ctx.send(f"✅ **{user.name}** 참가!")
+
+# ==========================================
+# ⚔️ 릴레이 게임 (15턴 후 5초 단축 적용)
+# ==========================================
+async def start_relay_game(ctx):
+    cid = ctx.channel.id
+    game = games[cid]
+    game["status"] = "playing"
+    players = game["players"]
+
+    await stop_sound(ctx)
+    await ctx.send(f"🚀 **게임 시작!** 주제: **[{game['topic']}]**\n순서대로 정답을 입력하세요!\n(15턴이 지나면 시간이 **5초**로 줄어듭니다!)")
+    await asyncio.sleep(2)
+
+    turn_idx = 0
+    game_over = False
+
+    while not game_over and cid in games:
+        current_player = players[turn_idx % len(players)]
+        
+        # 🔥 [핵심] 턴 수에 따른 시간 조절 (0~14턴: 7초, 15턴~: 5초)
+        if turn_idx >= 15:
+            time_limit = 5.0
+            msg_color = 0xFF0000 # 빨간색 (위험)
+            msg_extra = "🔥 **5초!! 서두르세요!!** 🔥"
+        else:
+            time_limit = 7.0
+            msg_color = 0x00BFFF # 파란색 (여유)
+            msg_extra = f"**{int(time_limit)}초** 남았습니다!"
+
+        # 🎵 째깍째깍 시작
+        try: await play_sound(ctx, "timer.mp3")
+        except: pass
+
+        embed = discord.Embed(
+            title=f"👉 {current_player.name}님의 차례! (Turn {turn_idx + 1})",
+            description=msg_extra,
+            color=msg_color
+        )
+        await ctx.send(embed=embed)
+
+        # -----------------------------------------------
+        # 재시도 가능한 타이머 로직
+        # -----------------------------------------------
+        start_time = time.time()
+        success = False 
+
+        while True:
+            elapsed = time.time() - start_time
+            remaining = time_limit - elapsed
+
+            if remaining <= 0:
+                break
+
+            def check(m):
+                return m.channel == ctx.channel and m.author == current_player
+
+            try:
+                msg = await bot.wait_for('message', timeout=remaining, check=check)
+                input_word = msg.content.replace(" ", "")
+
+                # 1. 정답
+                if input_word in game["valid_words"]:
+                    original = game["valid_words"][input_word]
+                    score = len(original) * 10
+                    
+                    game["scores"][current_player.name] += score
+                    del game["valid_words"][input_word]
+                    game["used_words"].add(original)
+
+                    await msg.add_reaction("⭕")
+                    await stop_sound(ctx) 
+                    success = True
+                    break 
+
+                # 2. 중복
+                elif input_word in [w.replace(" ", "") for w in game["used_words"]]:
+                    await msg.add_reaction("⚠️")
+                    # 시간 계속 흐름
+
+                # 3. 오답
+                else:
+                    await msg.add_reaction("❌")
+                    # 시간 계속 흐름
+
+            except asyncio.TimeoutError:
+                break 
+
+        # -----------------------------------------------
+        
+        if success:
+            turn_idx += 1 
+            await asyncio.sleep(0.5)
+        else:
+            await stop_sound(ctx)
+            await ctx.send(f"⏰ **시간 초과!**\n{current_player.name} 탈락! 게임 종료.")
+            game_over = True
+
+    await end_game(ctx, cid)
+
+async def end_game(ctx, cid):
+    if cid not in games: return
+    game = games[cid]
+    scores = game["scores"]
+    del games[cid]
+
+    if ctx.voice_client: await ctx.voice_client.disconnect()
+
+    embed = discord.Embed(title="🏁 게임 종료! 최종 결과 🏁", color=0xff0000)
+    if scores:
+        sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+        text = ""
+        for i, (name, score) in enumerate(sorted_scores):
+            medal = ["🥇", "🥈", "🥉"][i] if i < 3 else "  "
+            text += f"{medal} **{name}**: {score}점\n"
+        embed.description = text
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def 중단(ctx):
+    if ctx.channel.id in games:
+        del games[ctx.channel.id]
+        if ctx.voice_client: await ctx.voice_client.disconnect()
+        await ctx.send("🛑 게임 강제 종료")
+
+# 👇 토큰
+# bot.run("YOUR_DISCORD_BOT_TOKEN_HERE")

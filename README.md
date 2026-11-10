@@ -28,7 +28,6 @@ flowchart TD
     subgraph GamesAndSim ["🎮 Games & Simulation"]
         IDOL["👑 idol-manager<br/>(Idol Agency Management Sim)"]
         TRPG["🐉 trpg-master-ai<br/>(Interactive AI TRPG)"]
-        JUJE["🎯 juje-web<br/>(Realtime Party Game)"]
         KBO["⚾ kbo-2026-cheer<br/>(Ashley Queens Cheer & Profile)"]
     end
 
@@ -47,6 +46,11 @@ flowchart TD
         VMON["🖥️ virtual-monitor-tools<br/>(Virtual Display Driver Diagnostics)"]
     end
 
+    subgraph PiServers ["🍓 Raspberry Pi 24/7 Services (PM2)"]
+        JUJEBOT["🎮 juje-bot-engine<br/>(9-Game Discord Party Engine)"]
+        BYUNG["🤖 byungsans<br/>(Discord Music & ASMR Bot)"]
+    end
+
     subgraph BackendCloud ["☁️ Cloud & AI Services"]
         GEMINI["🤖 Google Gemini LLM<br/>(TRPG & Dream Analysis)"]
         SUPA[("⚡ Supabase Realtime<br/>WebSockets & DB")]
@@ -59,7 +63,7 @@ flowchart TD
     DREAM <-->|AI Analysis| GEMINI
     SUBWAY -.->|GenAI Extension| GEMINI
     TRPG <-->|Session Sync| SUPA
-    JUJE <-->|Realtime Sync| SUPA
+    JUJEDOCS <-->|Docs & Rules| JUJEBOT
     CHAT <-->|Realtime & Auth| SUPA
 ```
 
@@ -77,8 +81,9 @@ flowchart TD
 | [**`dream-capture`**](./dream-capture/) | **AI / Web** | React 19, Vite, `@google/genai` (Gemini), Better-SQLite3, Motion | 꿈 기록을 보관하고 Google Gemini AI를 통해 심층 심리 분석 및 해몽을 제공하는 스마트 드림 저널 플랫폼 | [README](./dream-capture/README.md) · [웹사이트](https://jaehofilm.vercel.app/) |
 | [**`kamueumgok`**](./kamueumgok/) | **Desktop / Audio** | Electron 40, Next.js 16, React 19, Framer Motion, `music-metadata` | 로컬 음원 메타데이터 실시간 파싱과 감각적인 UI를 결합한 네이티브 데스크톱 음악 플레이어 (가무음곡) | [README](./kamueumgok/README.md) |
 | [**`osu-selective-downloader`**](./osu-selective-downloader/) | **Extension** | Chrome Extension (V3), JavaScript, HTML5, Vite | osu! 웹사이트에서 원하는 난이도(Diff)만 골라서 가볍게 다운로드할 수 있는 브라우저 확장 프로그램 | [README](./osu-selective-downloader/README.md) · [AI Studio](https://ai.studio/apps/drive/1ZE8r9gbGy8d8XESfsf0MhYHvSI4Gqxao) |
-| [**`juje-web`**](./juje-web/) | **Web / Game** | Next.js 16, React 19, Supabase Realtime, TailwindCSS v4 | 실시간 룸 생성, 라이어/추리 모드, 타이머 및 상황별 사운드 이펙트를 제공하는 보드게임 웹 클라이언트 (Vercel 배포) | [README](./juje-web/README.md) |
+| [**`juje-bot-engine`**](./juje-bot-engine/) | **Bot / Discord** | Python 3, `discord.py`, FFmpeg, PyNaCl, `yt-dlp` | 라즈베리파이 상주(PM2): 서바이벌, 라이어, 텔레파시, 탐정, 영웅시장 등 9개 파티게임을 자동 진행하는 8,290줄 메인 봇 엔진 | [README](./juje-bot-engine/README.md) |
 | [**`juje-bot-docs`**](./juje-bot-docs/) | **Web / Docs** | React 19, Vite, Tailwind CSS v4, Motion, Markdown | 주제어BOT 9개 미니게임 공식 룰북 및 전략을 제공하는 디스코드 테마 다크모드 가이드 웹 ([실서비스](https://juje-bot.vercel.app/)) | [README](./juje-bot-docs/README.md) · [웹사이트](https://juje-bot.vercel.app/) |
+| [**`byungsans`**](./byungsans/) | **Bot / Discord** | Python 3, `discord.py`, `yt-dlp`, PyNaCl, FFmpeg | 라즈베리파이 상주(PM2): 유튜브 음악 스트리밍, 대기열, JSC 24/7 무한 라디오, ASMR 및 훈민정음 단어 퀴즈 디스코드 봇 | [README](./byungsans/README.md) |
 | [**`private-chat-app`**](./private-chat-app/) | **Web / Chat** | Vite, React 19, TypeScript, Supabase Auth/Realtime, Oxlint | 초경량 고속 빌드 기반의 프라이빗 실시간 암호화 대화 및 알림음 지원 채팅 웹 | [README](./private-chat-app/README.md) · [웹사이트](https://private-chat-app-plum.vercel.app/) |
 | [**`subway`**](./subway/) | **Web / Graphics** | React 19, Konva (`react-konva`), Vite, Tailwind CSS v4, TS | 인터랙티브 가상 지하철 및 버스 노선도 벡터 드로잉 웹 에디터 (10도 스냅, 역 도장, PNG 추출) | [README](./subway/README.md) · [웹사이트](https://subway-chi.vercel.app/) |
 | [**`discord-auto-mute`**](./discord-auto-mute/) | **Desktop** | Python 3, `speech_recognition`, `pyaudio`, `pywin32`, `keyboard` | 마이크 음성을 인식하여 게임 중 손대지 않고 디스코드 음소거 및 통화 종료를 자동 실행하는 백그라운드 런처 | [README](./discord-auto-mute/README.md) |
@@ -105,8 +110,9 @@ antigravity-workspace/
 ├── 📂 broadcast-cg-fun/          # 실시간 방송 CG 오버레이 & 리모컨 (Next.js)
 ├── 📂 discord-auto-mute/         # 음성인식 Discord 자동 음소거 매니저 (Python)
 ├── 📂 dream-capture/             # Google AI Studio 꿈 저널 & AI 분석 (Vite + Gemini)
-├── 📂 juje-web/                  # '주제어' 추리 파티게임 웹 클라이언트 (Next.js 16 + Vercel)
 ├── 📂 juje-bot-docs/             # 주제어 봇 게임 규칙 설명서 웹 (React 19 + Vercel)
+├── 📂 juje-bot-engine/           # 라즈베리파이 PM2 주제어 디스코드 봇 메인 서버 (Python)
+├── 📂 byungsans/                 # 라즈베리파이 PM2 음악 & ASMR 디스코드 봇 (Python)
 ├── 📂 kamueumgok/                # Electron + Next.js 데스크톱 음악 플레이어 (가무음곡)
 ├── 📂 private-chat-app/          # 초경량 실시간 보안 채팅 웹 (Vite + React 19)
 ├── 📂 subway/                    # 가상 지하철·노선도 벡터 드로잉 에디터 (React 19 + Konva)
@@ -150,18 +156,29 @@ python main.py
 # 또는 SMB4_게임실행.bat
 ```
 
-### 4. Web & AI 프로젝트 실행 (`trpg-master-ai`, `dream-capture`, `subway`, `juje-web` 등)
+### 4. Web & AI 프로젝트 실행 (`trpg-master-ai`, `dream-capture`, `subway`, `juje-bot-docs` 등)
 ```bash
 cd subway
 npm install
 npm run dev
 ```
 
-### 4. 데스크톱 앱 실행 (`kamueumgok`)
+### 5. 데스크톱 앱 실행 (`kamueumgok`)
 ```bash
 cd kamueumgok
 npm install
 npm run electron:dev
+```
+
+### 6. 라즈베리파이 상주 디스코드 봇 실행 (`juje-bot-engine`, `byungsans`)
+```bash
+# 주제어 봇 실행
+cd juje-bot-engine && pip install -r requirements.txt && python main.py
+# 또는 라즈베리파이 PM2 서비스: pm2 start main.py --name juje-bot --interpreter python3
+
+# 병Sans 봇 실행
+cd byungsans && pip install -r requirements.txt && python bot.py
+# 또는 라즈베리파이 PM2 서비스: pm2 start bot.py --name byungsans --interpreter python3
 ```
 
 ---

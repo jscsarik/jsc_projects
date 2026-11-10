@@ -1,0 +1,9 @@
+token.txt
+토큰.txt
+.env*
+!.env.example
+__pycache__/
+*.pyc
+ffmpeg.exe
+ffmpeg-*/
+*.log
