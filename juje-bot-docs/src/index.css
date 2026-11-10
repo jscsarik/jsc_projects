@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-discord-blurple: #5865f2;
+}
+
+.markdown-body p {
+  @apply mb-6 last:mb-0;
+}
+
+.markdown-body ul, .markdown-body li {
+  @apply space-y-6;
+}
+
+.markdown-body li {
+  @apply mb-6 last:mb-0 list-none;
+}
+
+.markdown-body br {
+  @apply block my-3 content-[''];
+}
