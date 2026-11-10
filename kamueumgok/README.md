@@ -1,11 +1,11 @@
 # 🎵 가무음곡 (KaMuEumGok / 歌舞音曲)
 
 > **Next.js 16과 Electron을 결합한 차세대 로컬 데스크톱 오디오 & 뮤직 플레이어**  
-> 감각적인 UI와 부드러운 애니메이션(`framer-motion`), 그리고 로컬 음원 메타데이터 실시간 파싱(`music-metadata`)을 통해 최상의 음악 감상 경험을 제공합니다.
+> 감각적인 UI와 부드러운 애니메이션(`framer-motion`), 그리고 로컬 음원 메타데이터 실시간 파싱(`music-metadata`)을 통해 최상의 음악 감상 경험을 제공하는 네이티브 플레이어입니다.
 
 ---
 
-## 📌 주요 기능
+## 📌 주요 특징 (Key Features)
 
 - 🖥️ **Electron 기반 네이티브 데스크톱 플레이어**
   - 커스텀 스트리밍 프로토콜(`music-app://`)을 통한 대용량 고음질 무손실 음원 실시간 스트리밍
@@ -20,7 +20,7 @@
 
 ---
 
-## 🛠️ 기술 스택
+## 🛠️ 기술 스택 (Tech Stack)
 
 - **Desktop Framework**: [Electron 40](https://www.electronjs.org/)
 - **Web Framework**: [Next.js 16 (Turbopack)](https://nextjs.org/)
@@ -32,10 +32,10 @@
 ## 🚀 빠른 시작 (Getting Started)
 
 ### 1. 사전 요구사항
-- Node.js 20+ 이상
+- Node.js 20.0 이상
 - npm / yarn
 
-### 2. 의존성 설치
+### 2. 패키지 설치
 ```bash
 npm install
 ```
@@ -54,14 +54,14 @@ npm run dev
 
 ---
 
-## 📂 프로젝트 구조
+## 📂 프로젝트 구조 (Project Structure)
 
 ```text
-├── main.js                 # Electron 메인 프로세스 (프로토콜 등록, 윈도우 생성, 파일시스템 I/O)
-├── preload.js              # Electron 렌더러 IPC 보안 브릿지
-├── src/                    # Next.js 프론트엔드 (플레이어 UI, 애니메이션 컴포넌트)
-├── KaMuEumGok.bat          # 윈도우 실행 배치 스크립트
-├── Run_start.vbs           # 백그라운드 무음 실행 스크립트
-├── icon.ico / icon.png     # 애플리케이션 아이콘
+├── main.js                  # Electron 메인 프로세스 (프로토콜 등록, 윈도우 생성, 파일시스템 I/O)
+├── preload.js               # Electron 렌더러 IPC 보안 브릿지
+├── src/                     # Next.js 프론트엔드 (플레이어 UI, 애니메이션 컴포넌트)
+├── KaMuEumGok.bat           # 윈도우 실행 배치 스크립트
+├── Run_start.vbs            # 백그라운드 무음 실행 스크립트
+├── icon.ico / icon.png      # 애플리케이션 아이콘
 └── package.json
 ```
