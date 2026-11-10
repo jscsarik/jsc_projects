@@ -7,11 +7,12 @@
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![OBS Studio](https://img.shields.io/badge/OBS_Studio-WebSocket-302E31?logo=obs-studio&logoColor=white)](https://obsproject.com/)
 [![Chrome Extension](https://img.shields.io/badge/Chrome_Extension-Manifest_V3-4285F4?logo=google-chrome&logoColor=white)](https://developer.chrome.com/docs/extensions/)
 [![Google Gemini](https://img.shields.io/badge/Google%20Gemini-LLM-4285f4?logo=google&logoColor=white)](https://aistudio.google.com/)
 [![Supabase](https://img.shields.io/badge/Supabase-Realtime-3ecf8e?logo=supabase&logoColor=white)](https://supabase.com/)
 
-> **웹 애플리케이션, 인공지능 시뮬레이터, 아이돌 기획사 경영 시뮬레이션 게임, 브라우저 확장 프로그램, 데스크톱 유틸리티를 망라한 올인원 모노레포(Monorepo) 워크스페이스입니다.**
+> **방송 송출 자동화 시스템, 웹 애플리케이션, 인공지능 시뮬레이터, 아이돌 기획사 시뮬레이션 게임, 브라우저 확장 프로그램, 데스크톱 유틸리티를 망라한 올인원 모노레포(Monorepo) 워크스페이스입니다.**
 
 ---
 
@@ -19,6 +20,11 @@
 
 ```mermaid
 flowchart TD
+    subgraph Broadcasting ["📡 Broadcasting & Media Systems"]
+        AUTO["📡 24h-auto-broadcaster<br/>(OBS WebSocket 24h APC Engine)"]
+        BCG["🎬 broadcast-cg-fun<br/>(OBS CG Overlay & Mobile Remote)"]
+    end
+
     subgraph GamesAndSim ["🎮 Games & Simulation"]
         IDOL["👑 idol-manager<br/>(Idol Agency Management Sim)"]
         TRPG["🐉 trpg-master-ai<br/>(Interactive AI TRPG)"]
@@ -27,7 +33,6 @@ flowchart TD
 
     subgraph WebAndAI ["🖥️ Web & AI Frontends"]
         DREAM["🌙 dream-capture<br/>(AI Dream Journal & Studio)"]
-        BCG["🎬 broadcast-cg-fun<br/>(OBS Overlay & Remote)"]
         CHAT["🔒 private-chat-app<br/>(Secure Ephemeral Chat)"]
         OSU["🎮 osu-selective-downloader<br/>(Chrome Extension)"]
     end
@@ -42,12 +47,14 @@ flowchart TD
     subgraph BackendCloud ["☁️ Cloud & AI Services"]
         GEMINI["🤖 Google Gemini LLM<br/>(TRPG & Dream Analysis)"]
         SUPA[("⚡ Supabase Realtime<br/>WebSockets & DB")]
+        OBS[("🎥 OBS Studio<br/>WebSocket Server")]
     end
 
+    AUTO <-->|A/B Roll Control| OBS
+    BCG <-->|Realtime Sync| SUPA
     TRPG <-->|Prompt & Stream| GEMINI
     DREAM <-->|AI Analysis| GEMINI
     TRPG <-->|Session Sync| SUPA
-    BCG <-->|Realtime Sync| SUPA
     JUJE <-->|Realtime Sync| SUPA
     CHAT <-->|Realtime & Auth| SUPA
 ```
@@ -58,12 +65,13 @@ flowchart TD
 
 | 프로젝트명 | 분야 | 주요 기술 스택 | 핵심 설명 | 바로가기 |
 | :--- | :---: | :--- | :--- | :---: |
+| [**`24h-auto-broadcaster`**](./24h-auto-broadcaster/) | **Broadcasting** | Python 3, OBS WebSocket (`obsws-python`), OpenCV | DIMA 캡스톤디자인: A/B Roll 심리스 스위칭과 핫스왑을 지원하는 24시간 무인 자동 방송 송출 관제 시스템 | [README](./24h-auto-broadcaster/README.md) |
 | [**`idol-manager`**](./idol-manager/) | **Game / Sim** | Python 3, PyQt/GUI, SQLite3, PyInstaller | 아이돌 스카우트, 트레이닝, 정규 리그전, 재무/급여 및 주간 성장을 시뮬레이션하는 풀스케일 기획사 경영 게임 | [README](./idol-manager/README.md) |
 | [**`trpg-master-ai`**](./trpg-master-ai/) | **AI / Web** | Next.js 16, React 19, Google Gemini LLM, TailwindCSS, Supabase | D&D 5e 공식 룰셋과 창작 시나리오(군웅할거, 수미상관 등)를 기반으로 세션을 자율 진행하는 인터랙티브 TRPG 마스터 | [README](./trpg-master-ai/README.md) |
+| [**`broadcast-cg-fun`**](./broadcast-cg-fun/) | **Web / Media** | Next.js, React, Supabase Realtime, `react-player` | OBS 방송 화면 자막/영상 오버레이(`/screen`)와 스마트폰 원격 제어기(`/remote`), TTS를 실시간 연동하는 방송 솔루션 | [README](./broadcast-cg-fun/README.md) |
 | [**`dream-capture`**](./dream-capture/) | **AI / Web** | React 19, Vite, `@google/genai` (Gemini), Better-SQLite3, Motion | 꿈 기록을 보관하고 Google Gemini AI를 통해 심층 심리 분석 및 해몽을 제공하는 스마트 드림 저널 플랫폼 | [README](./dream-capture/README.md) |
 | [**`kamueumgok`**](./kamueumgok/) | **Desktop / Audio** | Electron 40, Next.js 16, React 19, Framer Motion, `music-metadata` | 로컬 음원 메타데이터 실시간 파싱과 감각적인 UI를 결합한 네이티브 데스크톱 음악 플레이어 (가무음곡) | [README](./kamueumgok/README.md) |
 | [**`osu-selective-downloader`**](./osu-selective-downloader/) | **Extension** | Chrome Extension (V3), JavaScript, HTML5, Vite | osu! 웹사이트에서 원하는 난이도(Diff)만 골라서 가볍게 다운로드할 수 있는 브라우저 확장 프로그램 | [README](./osu-selective-downloader/README.md) |
-| [**`broadcast-cg-fun`**](./broadcast-cg-fun/) | **Web / Media** | Next.js, React, Supabase Realtime, `react-player` | OBS 방송 화면 자막/영상 오버레이(`/screen`)와 스마트폰 원격 제어기(`/remote`), TTS를 실시간 연동하는 방송 솔루션 | [README](./broadcast-cg-fun/README.md) |
 | [**`juje-web`**](./juje-web/) | **Web / Game** | Next.js 16, React 19, Supabase Realtime, TailwindCSS v4 | 실시간 룸 생성, 라이어/추리 모드, 타이머 및 상황별 사운드 이펙트를 제공하는 보드게임 웹 클라이언트 | [README](./juje-web/README.md) |
 | [**`private-chat-app`**](./private-chat-app/) | **Web / Chat** | Vite, React 19, TypeScript, Supabase Auth/Realtime, Oxlint | 초경량 고속 빌드 기반의 프라이빗 실시간 암호화 대화 및 알림음 지원 채팅 웹 | [README](./private-chat-app/README.md) |
 | [**`discord-auto-mute`**](./discord-auto-mute/) | **Desktop** | Python 3, `speech_recognition`, `pyaudio`, `pywin32`, `keyboard` | 마이크 음성을 인식하여 게임 중 손대지 않고 디스코드 음소거 및 통화 종료를 자동 실행하는 백그라운드 런처 | [README](./discord-auto-mute/README.md) |
@@ -79,17 +87,13 @@ antigravity-workspace/
 ├── 📄 .gitignore                 # 보안 토큰, 캐시, 대용량 진단로그 차단
 ├── 📄 README.md                  # 전체 프로젝트 허브 문서 (현재 파일)
 │
+├── 📂 24h-auto-broadcaster/      # OBS WebSocket 무인 자동 방송 송출 시스템 (Python)
+│   ├── apc_main.py               # CMS, DPC, CDS, APC 4대 모듈 통합 송출 엔진
+│   ├── drawing.pdf               # 시스템 계통도 및 시퀀스 설계도
+│   └── README.md
+│
 ├── 📂 idol-manager/              # 아이돌 기획사 육성 경영 시뮬레이션 게임 (Python)
-│   ├── idol_manager/             # 게임 코어 로직, UI 컨트롤러, 데이터 모델
-│   ├── assets/                   # 아이돌 일러스트, 음원, UI 그래픽
-│   ├── docs/                     # 시스템 기획서 및 패치노트
-│   └── README.md
-│
 ├── 📂 osu-selective-downloader/  # osu! 비트맵 난이도 선택 다운로더 (Chrome Extension)
-│   ├── manifest.json             # Manifest V3 확장 프로그램 매니페스트
-│   ├── popup.html / popup.js     # 난이도 선택 팝업 UI
-│   └── README.md
-│
 ├── 📂 broadcast-cg-fun/          # 실시간 방송 CG 오버레이 & 리모컨 (Next.js)
 ├── 📂 discord-auto-mute/         # 음성인식 Discord 자동 음소거 매니저 (Python)
 ├── 📂 dream-capture/             # Google AI Studio 꿈 저널 & AI 분석 (Vite + Gemini)
@@ -112,19 +116,21 @@ antigravity-workspace/
 
 ---
 
-## ⚡ 프로젝트별 실행 가이드 (Quick Start)
+## ⚡ 프로젝트별 빠른 실행 가이드 (Quick Start)
 
-### 1. 아이돌 매니저 실행 (`idol-manager`)
+### 1. 24시간 무인 방송 송출기 (`24h-auto-broadcaster`)
+```bash
+cd 24h-auto-broadcaster
+pip install -r requirements.txt
+python apc_main.py
+```
+
+### 2. 아이돌 매니저 실행 (`idol-manager`)
 ```bash
 cd idol-manager
 pip install -r requirements.txt
 python main.py
-# 또는 폴더 내의 실행하기.bat 더블 클릭
 ```
-
-### 2. osu! 확장 프로그램 로드 (`osu-selective-downloader`)
-1. Chrome 브라우저에서 `chrome://extensions/` 이동 후 **[개발자 모드]** 활성화
-2. **[압축해제된 확장 프로그램을 로드합니다]** 클릭 후 `osu-selective-downloader` 폴더 선택
 
 ### 3. Web & AI 프로젝트 실행 (`trpg-master-ai`, `dream-capture`, `juje-web` 등)
 ```bash
