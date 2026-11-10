@@ -1,0 +1,356 @@
+{
+  "rules_version": "2026-10-26-confirmed-season-format",
+  "source_reference": "docs/IDOL_Manager_기획서_2026-10-26.txt 5장·6장·8장 및 사용자 확정 답변",
+  "catalog_status": "confirmed",
+  "agencies": 10,
+  "regular_weeks": 24,
+  "offseason_weeks": 4,
+  "meetings_per_pair": 13,
+  "matches_per_agency": 117,
+  "regular_match_count": 585,
+  "regular_weekdays": [
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "special_weeks": [
+    4,
+    8,
+    12,
+    16,
+    20,
+    24
+  ],
+  "doubleheader_days": 3,
+  "special_types": [
+    "대학축제",
+    "K-POP 페스티벌",
+    "아이돌 체육대회"
+  ],
+  "content_count": 30,
+  "base_appearances": 19,
+  "extra_appearance_contents": 15,
+  "late_content_name": "연말시상식",
+  "late_content_first_week": 21,
+  "contents": [
+    {
+      "id": "content-01",
+      "name": "음악방송",
+      "main_abilities": [
+        "보컬",
+        "댄스",
+        "랩"
+      ],
+      "participants_min": 5,
+      "participants_max": 5
+    },
+    {
+      "id": "content-02",
+      "name": "팬싸인회",
+      "main_abilities": [
+        "외모",
+        "리더십",
+        "예능"
+      ],
+      "participants_min": 3,
+      "participants_max": 5
+    },
+    {
+      "id": "content-03",
+      "name": "유튜브",
+      "main_abilities": [
+        "예능",
+        "지성"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-04",
+      "name": "예능방송",
+      "main_abilities": [
+        "예능",
+        "지성",
+        "외모"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-05",
+      "name": "라디오",
+      "main_abilities": [
+        "보컬",
+        "예능"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-06",
+      "name": "단독콘서트",
+      "main_abilities": [
+        "보컬",
+        "댄스",
+        "랩"
+      ],
+      "participants_min": 5,
+      "participants_max": 5
+    },
+    {
+      "id": "content-07",
+      "name": "음원발매",
+      "main_abilities": [
+        "보컬",
+        "랩",
+        "지성"
+      ],
+      "participants_min": 5,
+      "participants_max": 5
+    },
+    {
+      "id": "content-08",
+      "name": "라이브쇼",
+      "main_abilities": [
+        "보컬",
+        "댄스",
+        "랩"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-09",
+      "name": "광고촬영",
+      "main_abilities": [
+        "외모",
+        "신체"
+      ],
+      "participants_min": 1,
+      "participants_max": 2
+    },
+    {
+      "id": "content-10",
+      "name": "화보촬영",
+      "main_abilities": [
+        "외모",
+        "신체"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-11",
+      "name": "SNS 라이브",
+      "main_abilities": [
+        "예능",
+        "리더십"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-12",
+      "name": "토크쇼",
+      "main_abilities": [
+        "지성",
+        "예능"
+      ],
+      "participants_min": 1,
+      "participants_max": 2
+    },
+    {
+      "id": "content-13",
+      "name": "해외팬미팅",
+      "main_abilities": [
+        "보컬",
+        "리더십",
+        "외모"
+      ],
+      "participants_min": 5,
+      "participants_max": 5
+    },
+    {
+      "id": "content-14",
+      "name": "연말시상식",
+      "main_abilities": [
+        "보컬",
+        "댄스",
+        "외모"
+      ],
+      "participants_min": 5,
+      "participants_max": 5
+    },
+    {
+      "id": "content-15",
+      "name": "댄스 챌린지",
+      "main_abilities": [
+        "댄스",
+        "신체"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-16",
+      "name": "패션 행사",
+      "main_abilities": [
+        "외모",
+        "신체"
+      ],
+      "participants_min": 1,
+      "participants_max": 2
+    },
+    {
+      "id": "content-17",
+      "name": "게임 방송",
+      "main_abilities": [
+        "지성",
+        "예능"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-18",
+      "name": "드라마",
+      "main_abilities": [
+        "외모",
+        "예능"
+      ],
+      "participants_min": 1,
+      "participants_max": 2
+    },
+    {
+      "id": "content-19",
+      "name": "스포츠 방송",
+      "main_abilities": [
+        "신체",
+        "지성"
+      ],
+      "participants_min": 1,
+      "participants_max": 2
+    },
+    {
+      "id": "content-20",
+      "name": "다큐멘터리",
+      "main_abilities": [
+        "지성",
+        "리더십"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-21",
+      "name": "페스티벌 게스트",
+      "main_abilities": [
+        "보컬",
+        "랩",
+        "신체"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-22",
+      "name": "봉사활동",
+      "main_abilities": [
+        "리더십",
+        "지성"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-23",
+      "name": "버스킹 행사",
+      "main_abilities": [
+        "보컬",
+        "댄스",
+        "랩"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-24",
+      "name": "싸이퍼 무대",
+      "main_abilities": [
+        "랩",
+        "지성",
+        "댄스"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-25",
+      "name": "랜덤 플레이 댄스",
+      "main_abilities": [
+        "댄스",
+        "신체"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-26",
+      "name": "스트릿 댄스",
+      "main_abilities": [
+        "댄스",
+        "신체"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-27",
+      "name": "야구 시구",
+      "main_abilities": [
+        "신체",
+        "외모"
+      ],
+      "participants_min": 1,
+      "participants_max": 2
+    },
+    {
+      "id": "content-28",
+      "name": "MC방송",
+      "main_abilities": [
+        "지성",
+        "외모",
+        "예능"
+      ],
+      "participants_min": 1,
+      "participants_max": 2
+    },
+    {
+      "id": "content-29",
+      "name": "해외 아티스트 협업 무대",
+      "main_abilities": [
+        "보컬",
+        "랩",
+        "리더십"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    },
+    {
+      "id": "content-30",
+      "name": "해외 문화교류 프로그램",
+      "main_abilities": [
+        "예능",
+        "리더십"
+      ],
+      "participants_min": 1,
+      "participants_max": 3
+    }
+  ],
+  "actual_match_times": null,
+  "per_agency_content_minimum": null,
+  "per_agency_content_maximum": null,
+  "same_opponent_consecutive_day_limit": null
+}

@@ -1,0 +1,12 @@
+{
+  "age_rules": {"initial_draft": [17, 26]},
+  "overall_level": [40, 70],
+  "health": [65, 100],
+  "potential_gain": [0, 35],
+  "initial_candidates": 200,
+  "archetypes": [
+    {"name": "specialist", "weight": 50, "specialty_count": [1, 3], "specialty_boost": [12, 22], "spread": 4},
+    {"name": "balanced", "weight": 30, "specialty_count": [1, 3], "specialty_boost": [2, 5], "spread": 2},
+    {"name": "extreme", "weight": 20, "specialty_count": [1, 3], "specialty_boost": [28, 40], "spread": 5}
+  ]
+}

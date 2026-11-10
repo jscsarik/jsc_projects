@@ -1,0 +1,26 @@
+{
+  "version": "development-2-training",
+  "source": "통합 마스터 기획서 10장 및 16차 사용자 확정 답변",
+  "active_phases": ["regular", "postseason"],
+  "weekly_basic": {
+    "first_team_up_multipliers": [3, 2],
+    "first_team_down_multipliers": [1, 0.5],
+    "second_team_skills": 3,
+    "second_team_up_multiplier": 2,
+    "second_team_down_multiplier": 0.5,
+    "second_team_conflict": "cancel",
+    "trainee_skills": 4,
+    "trainee_up_multiplier": 1.5,
+    "focus_up_multiplier": 2,
+    "focus_hint_up_multiplier": 3.5,
+    "leader_percent_divisor": 2
+  },
+  "additional_trials": 2,
+  "gap_chances": [[30, 0.5], [20, 0.4], [10, 0.25], [0, 0.1]],
+  "aging_anchor_day": 14,
+  "aging_interval_days": 14,
+  "aging_thresholds": [[30, 2], [28, 1]],
+  "annual_age_increase": 2,
+  "age_increase_regular_weeks": [12, 24],
+  "order": ["basic", "second_leader", "additional", "aging", "annual_age"]
+}

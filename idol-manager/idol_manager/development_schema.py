@@ -1,0 +1,22 @@
+"""Version 11: immutable daily role facts and idempotent settlement ledgers."""
+V11_STATEMENTS=(
+    '''CREATE TABLE development_runtime(game_id INTEGER PRIMARY KEY REFERENCES game(id) ON DELETE CASCADE,
+        rollout_day INTEGER NOT NULL,seed TEXT NOT NULL,rules_json TEXT NOT NULL)''',
+    '''CREATE TABLE development_days(game_id INTEGER NOT NULL DEFAULT 1 REFERENCES game(id) ON DELETE CASCADE,
+        absolute_day INTEGER NOT NULL,person_id TEXT NOT NULL REFERENCES idols(person_id) ON DELETE CASCADE,
+        agency_id TEXT REFERENCES agencies(id),role TEXT NOT NULL,leader INTEGER NOT NULL DEFAULT 0,
+        PRIMARY KEY(absolute_day,person_id))''',
+    '''CREATE TABLE development_settlements(id TEXT PRIMARY KEY,game_id INTEGER NOT NULL DEFAULT 1 REFERENCES game(id) ON DELETE CASCADE,
+        absolute_day INTEGER NOT NULL,kind TEXT NOT NULL CHECK(kind IN('growth','aging','birthday')),
+        period_start INTEGER NOT NULL,period_end INTEGER NOT NULL,seed TEXT NOT NULL,rules_version TEXT NOT NULL,
+        UNIQUE(game_id,absolute_day,kind))''',
+    '''CREATE TABLE development_results(settlement_id TEXT REFERENCES development_settlements(id) ON DELETE CASCADE,
+        person_id TEXT REFERENCES idols(person_id) ON DELETE CASCADE,agency_id TEXT REFERENCES agencies(id),role TEXT NOT NULL,
+        age_before INTEGER NOT NULL,age_after INTEGER NOT NULL,ca_before_json TEXT NOT NULL,ca_after_json TEXT NOT NULL,
+        deltas_json TEXT NOT NULL,bonus_applied INTEGER NOT NULL,reasons_json TEXT NOT NULL,facts_json TEXT NOT NULL,
+        PRIMARY KEY(settlement_id,person_id))''',
+    '''CREATE TABLE development_trials(settlement_id TEXT,person_id TEXT,ordinal INTEGER,
+        trial_json TEXT NOT NULL,PRIMARY KEY(settlement_id,person_id,ordinal),
+        FOREIGN KEY(settlement_id,person_id) REFERENCES development_results(settlement_id,person_id) ON DELETE CASCADE)''',
+    'CREATE INDEX development_days_person ON development_days(person_id,absolute_day)',
+)

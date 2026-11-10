@@ -1,0 +1,5 @@
+{
+  "name": "osu! Selective Downloader",
+  "description": "Download specific difficulties from osu! beatmapsets with a physics-based UI.",
+  "requestFramePermissions": []
+}

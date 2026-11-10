@@ -1,0 +1,8 @@
+{
+  "version": "finance-1", "sponsor_krw": 10000000, "season_bonus_krw": 1000000000,
+  "trainee_weekly_krw": 100000, "second_weekly_krw": 100000,
+  "focus_weekly_krw": 150000, "first_contract_annual_krw": 30000000,
+  "pay_weeks": [4,8,12,16,20,24], "second_week_policy": "majority",
+  "role_tie_priority": ["first_team","second_team","trainee"],
+  "simultaneous_adjustments": "offset", "optional_focus_training": "tuesday_confirmation_paid_once"
+}

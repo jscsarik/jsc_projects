@@ -1,0 +1,72 @@
+"""Version 6 additions. Existing fixture and player tables are never rewritten."""
+V6_STATEMENTS = (
+    """CREATE TABLE match_runs (
+        match_id TEXT PRIMARY KEY REFERENCES scheduled_matches(id) ON DELETE CASCADE,
+        engine_version TEXT NOT NULL, seed TEXT NOT NULL, input_json TEXT NOT NULL,
+        status TEXT NOT NULL CHECK(status IN ('prepared','blocked','completed')),
+        error TEXT NOT NULL DEFAULT '', created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)""",
+    """CREATE TABLE match_results (
+        match_id TEXT PRIMARY KEY REFERENCES scheduled_matches(id) ON DELETE CASCADE,
+        resolution TEXT NOT NULL CHECK(resolution IN ('normal','deathmatch','forfeit','double_forfeit')),
+        winner_id TEXT REFERENCES agencies(id), loser_id TEXT REFERENCES agencies(id),
+        summary_json TEXT NOT NULL, completed_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)""",
+    """CREATE TABLE match_team_stats (
+        match_id TEXT NOT NULL REFERENCES match_results(match_id) ON DELETE CASCADE,
+        agency_id TEXT NOT NULL REFERENCES agencies(id), base_score INTEGER NOT NULL CHECK(base_score>=0),
+        deathmatch_score INTEGER NOT NULL CHECK(deathmatch_score>=0), total_score INTEGER NOT NULL CHECK(total_score=base_score+deathmatch_score),
+        outcome TEXT NOT NULL CHECK(outcome IN ('win','loss')), points INTEGER NOT NULL CHECK(points IN(0,1)),
+        forfeit INTEGER NOT NULL CHECK(forfeit IN(0,1)), PRIMARY KEY(match_id,agency_id),
+        CHECK((outcome='win' AND points=1) OR (outcome='loss' AND points=0)))""",
+    """CREATE TABLE match_player_stats (
+        match_id TEXT NOT NULL, person_id TEXT NOT NULL REFERENCES people(id), agency_id TEXT NOT NULL,
+        content_id TEXT NOT NULL, base_attempts INTEGER NOT NULL CHECK(base_attempts=60),
+        base_successes INTEGER NOT NULL CHECK(base_successes BETWEEN 0 AND base_attempts),
+        base_failures INTEGER NOT NULL CHECK(base_failures=base_attempts-base_successes),
+        main_attempts INTEGER NOT NULL CHECK(main_attempts=30), support_attempts INTEGER NOT NULL CHECK(support_attempts=30),
+        leader_attempts INTEGER NOT NULL CHECK(leader_attempts IN(0,2)),
+        leader_successes INTEGER NOT NULL CHECK(leader_successes BETWEEN 0 AND leader_attempts),
+        deathmatch_attempts INTEGER NOT NULL CHECK(deathmatch_attempts>=0),
+        deathmatch_successes INTEGER NOT NULL CHECK(deathmatch_successes BETWEEN 0 AND deathmatch_attempts),
+        success_rate REAL NOT NULL CHECK(success_rate BETWEEN 0 AND 1), base_success_rate REAL NOT NULL CHECK(base_success_rate BETWEEN 0 AND 1),
+        outcome TEXT NOT NULL CHECK(outcome IN('win','loss')), winning_idol INTEGER NOT NULL CHECK(winning_idol IN(0,1)),
+        losing_idol INTEGER NOT NULL CHECK(losing_idol IN(0,1)), PRIMARY KEY(match_id,person_id),
+        FOREIGN KEY(match_id,agency_id) REFERENCES match_team_stats(match_id,agency_id) ON DELETE CASCADE)""",
+    """CREATE TABLE match_ability_stats (
+        match_id TEXT NOT NULL, person_id TEXT NOT NULL, phase TEXT NOT NULL CHECK(phase IN('main','support')),
+        skill TEXT NOT NULL CHECK(skill IN('vocal','dance','rap','entertainment','appearance','physique','intelligence','leadership')),
+        attempts INTEGER NOT NULL CHECK(attempts>=0), successes INTEGER NOT NULL CHECK(successes BETWEEN 0 AND attempts),
+        failures INTEGER NOT NULL CHECK(failures=attempts-successes), PRIMARY KEY(match_id,person_id,phase,skill),
+        FOREIGN KEY(match_id,person_id) REFERENCES match_player_stats(match_id,person_id) ON DELETE CASCADE)""",
+    """CREATE TABLE match_events (
+        match_id TEXT NOT NULL REFERENCES match_results(match_id) ON DELETE CASCADE,
+        sequence INTEGER NOT NULL CHECK(sequence>=1), agency_id TEXT NOT NULL, person_id TEXT NOT NULL,
+        phase TEXT NOT NULL CHECK(phase IN('main','support','leader','deathmatch')),
+        skill TEXT NOT NULL CHECK(skill IN('vocal','dance','rap','entertainment','appearance','physique','intelligence','leadership')),
+        tick INTEGER NOT NULL CHECK(tick BETWEEN 1 AND 60), round_number INTEGER NOT NULL CHECK(round_number>=0),
+        attempt INTEGER NOT NULL CHECK(attempt>=1), probability REAL NOT NULL CHECK(probability BETWEEN 0 AND 1),
+        roll REAL NOT NULL CHECK(roll>=0 AND roll<1), success INTEGER NOT NULL CHECK(success IN(0,1)),
+        PRIMARY KEY(match_id,sequence),
+        FOREIGN KEY(match_id,person_id) REFERENCES match_player_stats(match_id,person_id) ON DELETE CASCADE,
+        FOREIGN KEY(match_id,agency_id) REFERENCES match_team_stats(match_id,agency_id) ON DELETE CASCADE)""",
+    "CREATE INDEX idx_match_players_person ON match_player_stats(person_id,content_id)",
+    """CREATE VIEW regular_standings AS SELECT m.season,t.agency_id,COUNT(*) AS played,
+        SUM(t.outcome='win') AS wins,SUM(t.outcome='loss') AS losses,SUM(t.points) AS points
+        FROM match_team_stats t JOIN scheduled_matches m ON m.id=t.match_id GROUP BY m.season,t.agency_id""",
+    """CREATE VIEW idol_regular_career_stats AS SELECT person_id,COUNT(*) AS appearances,
+        SUM(outcome='win') AS wins,SUM(outcome='loss') AS losses,SUM(winning_idol) AS winning_idol,
+        SUM(losing_idol) AS losing_idol,SUM(base_attempts) AS base_attempts,SUM(base_successes) AS base_successes,
+        SUM(leader_attempts) AS leader_attempts,SUM(leader_successes) AS leader_successes,
+        SUM(deathmatch_attempts) AS deathmatch_attempts,SUM(deathmatch_successes) AS deathmatch_successes,
+        1.0*SUM(base_successes+leader_successes)/SUM(base_attempts+leader_attempts) AS success_rate
+        FROM match_player_stats GROUP BY person_id""",
+    """CREATE VIEW idol_content_stats AS SELECT person_id,content_id,COUNT(*) AS appearances,
+        SUM(base_attempts) AS base_attempts,SUM(base_successes) AS base_successes,
+        SUM(base_failures) AS base_failures,SUM(leader_attempts) AS leader_attempts,
+        SUM(leader_successes) AS leader_successes,
+        1.0*SUM(base_successes+leader_successes)/SUM(base_attempts+leader_attempts) AS success_rate
+        FROM match_player_stats GROUP BY person_id,content_id""",
+    """CREATE VIEW idol_ability_stats AS SELECT person_id,phase,skill,SUM(attempts) AS attempts,
+        SUM(successes) AS successes,SUM(failures) AS failures,
+        CASE WHEN SUM(attempts)>0 THEN 1.0*SUM(successes)/SUM(attempts) ELSE NULL END AS success_rate
+        FROM match_ability_stats GROUP BY person_id,phase,skill""",
+)
