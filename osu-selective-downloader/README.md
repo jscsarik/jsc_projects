@@ -1,6 +1,9 @@
 # 🎮 osu! Selective Downloader (오스! 비트맵 난이도별 선택 다운로더)
 
 > **osu! 공식 웹사이트에서 플레이어가 원하는 특정 난이도(Diff)만 골라서 가볍게 다운로드하는 Chrome 확장 프로그램**  
+> 🤖 **Google AI Studio Applet:** [https://ai.studio/apps/drive/1ZE8r9gbGy8d8XESfsf0MhYHvSI4Gqxao](https://ai.studio/apps/drive/1ZE8r9gbGy8d8XESfsf0MhYHvSI4Gqxao)  
+> 🌐 **대상 공식 사이트 (osu! Beatmaps):** [https://osu.ppy.sh/beatmapsets](https://osu.ppy.sh/beatmapsets)  
+> 📦 **GitHub 원본 저장소:** [https://github.com/jscsarik/osu--selective-downloader](https://github.com/jscsarik/osu--selective-downloader)  
 > 불필요한 고난도/저난도 비트맵으로 인한 디스크 용량 낭비를 방지하고, 필요한 난이도 파일(`.osu`)과 음원만 추출하여 압축 다운로드합니다.
 
 ---

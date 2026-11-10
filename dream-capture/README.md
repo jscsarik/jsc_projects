@@ -1,6 +1,8 @@
 # 🌙 DreamCapture (Google AI Studio 기반 지능형 꿈 분석 & 시각화 플랫폼)
 
 > **사용자가 기록한 꿈을 Google Gemini AI로 심층 심리 분석하고 시각적 통계를 제공하는 스마트 드림 저널**  
+> 🌐 **배포 웹사이트 (Vercel):** [https://jaehofilm.vercel.app/](https://jaehofilm.vercel.app/)  
+> 🤖 **Google AI Studio Applet:** [https://ai.studio/apps/6ebec58c-6e9f-43b9-a2a1-e374ffbe5cf7](https://ai.studio/apps/6ebec58c-6e9f-43b9-a2a1-e374ffbe5cf7)  
 > Google AI Studio에서 기획·개발된 풀스택 웹 애플리케이션으로, 개인의 꿈 데이터를 로컬 SQLite에 안전하게 보관하고 최신 생성형 AI 모델과 결합하여 다채로운 해몽 및 분석을 지원합니다.
 
 ---

@@ -5,6 +5,8 @@
 # 🚇 SubwayMK (인터랙티브 가상 지하철·노선도 에디터)
 
 > **직관적인 가상 지하철 및 버스 노선도 벡터 드로잉 웹 에디터**  
+> 🌐 **배포 웹사이트 (Vercel):** [https://subway-chi.vercel.app/](https://subway-chi.vercel.app/)  
+> 🤖 **Google AI Studio Applet:** [https://ai.studio/apps/2174740a-627b-4455-8851-473357a76ba8](https://ai.studio/apps/2174740a-627b-4455-8851-473357a76ba8)  
 > 캔버스 위에서 자유로운 노선 드로잉, 10도 단위 스냅 각도 보정, 역 명명 및 도장 배치, 드래그 이동 및 고해상도 PNG 이미지 내보내기를 지원하는 React 19 기반 노선도 제작 스튜디오입니다.
 
 ---

@@ -1,6 +1,8 @@
 # 🐉 TRPG Master AI (Google Gemini 기반 지능형 TRPG 세션 마스터)
 
 > **Google Gemini 대규모 언어 모델(LLM)을 게임 마스터(DM/GM)로 탑재한 인터랙티브 롤플레잉 플랫폼**  
+> 🌐 **연동 룰북/위키 웹사이트 (Vercel):** [https://trpgjsc.vercel.app/](https://trpgjsc.vercel.app/) (*군웅할거 TRPG 위키 및 캐릭터 빌더*)  
+> 🤖 **AI 엔진 플랫폼:** [Google AI Studio (Gemini API)](https://aistudio.google.com/)  
 > D&D 5e 공식 룰북과 다채로운 창작 시나리오(군웅할거, 수미상관, 이정학 토벌전) 데이터를 주입받아 유저의 선택에 유기적으로 반응하며 몰입도 높은 스토리를 실시간으로 이끌어갑니다.
 
 ---

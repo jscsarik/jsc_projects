@@ -1,6 +1,7 @@
 # 🔒 Private Chat App (보안 실시간 채팅 웹 애플리케이션)
 
 > **Vite + React 19와 Supabase Realtime으로 구축된 초경량 고속 프라이빗 채팅 웹 애플리케이션**  
+> 🌐 **배포 웹사이트 (Vercel):** [https://private-chat-app-plum.vercel.app/](https://private-chat-app-plum.vercel.app/)  
 > 비밀스러운 대화, 초저지연 실시간 메시징, 오디오 사운드 알림을 제공하며 불필요한 흔적을 남기지 않는 안전한 소통 공간을 제공합니다.
 
 ---

@@ -1,6 +1,7 @@
 # 🎬 Broadcast CG Fun (실시간 방송 CG 오버레이 & 모바일 원격 제어 시스템)
 
 > **OBS Studio 및 vMix 방송 송출 화면을 실시간으로 제어하는 차세대 방송 자막 및 전광판 웹 솔루션**  
+> 🌐 **배포 웹사이트 (Vercel):** [https://broadcast-cg-fun.vercel.app/](https://broadcast-cg-fun.vercel.app/)  
 > 스마트폰 리모컨(`/remote`)과 OBS 브라우저 소스(`/screen`)가 Supabase Realtime 초저지연 웹소켓을 통해 밀리초 단위로 양방향 동기화됩니다.
 
 ---
