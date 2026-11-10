@@ -29,6 +29,7 @@ flowchart TD
         IDOL["👑 idol-manager<br/>(Idol Agency Management Sim)"]
         TRPG["🐉 trpg-master-ai<br/>(Interactive AI TRPG)"]
         JUJE["🎯 juje-web<br/>(Realtime Party Game)"]
+        KBO["⚾ kbo-2026-cheer<br/>(Ashley Queens Cheer & Profile)"]
     end
 
     subgraph WebAndAI ["🖥️ Web & AI Frontends"]
@@ -69,6 +70,7 @@ flowchart TD
 | 프로젝트명 | 분야 | 주요 기술 스택 | 핵심 설명 | 바로가기 |
 | :--- | :---: | :--- | :--- | :---: |
 | [**`24h-auto-broadcaster`**](./24h-auto-broadcaster/) | **Broadcasting** | Python 3, OBS WebSocket (`obsws-python`), OpenCV | DIMA 캡스톤디자인: A/B Roll 심리스 스위칭과 핫스왑을 지원하는 24시간 무인 자동 방송 송출 관제 시스템 | [README](./24h-auto-broadcaster/README.md) |
+| [**`kbo-2026-cheer`**](./kbo-2026-cheer/) | **Game / Media** | Python 3, CustomTkinter, Pygame, Pillow, `keyboard`, `psutil` | SMB4 / KBO 가상 야구 '애슐리 퀸즈' 실시간 응원가(40곡), 22명 선수단 얼굴 프로필 전광판, 수비 다이아몬드 시각화 및 자동 실행 매니저 | [README](./kbo-2026-cheer/README.md) |
 | [**`idol-manager`**](./idol-manager/) | **Game / Sim** | Python 3, PyQt/GUI, SQLite3, PyInstaller | 아이돌 스카우트, 트레이닝, 정규 리그전, 재무/급여 및 주간 성장을 시뮬레이션하는 풀스케일 기획사 경영 게임 | [README](./idol-manager/README.md) |
 | [**`trpg-master-ai`**](./trpg-master-ai/) | **AI / Web** | Next.js 16, React 19, Google Gemini LLM, TailwindCSS, Supabase | D&D 5e 공식 룰셋과 창작 시나리오(군웅할거, 수미상관 등)를 기반으로 세션을 자율 진행하는 인터랙티브 TRPG 마스터 | [README](./trpg-master-ai/README.md) |
 | [**`broadcast-cg-fun`**](./broadcast-cg-fun/) | **Web / Media** | Next.js, React, Supabase Realtime, `react-player` | OBS 방송 화면 자막/영상 오버레이(`/screen`)와 스마트폰 원격 제어기(`/remote`), TTS를 실시간 연동하는 방송 솔루션 | [README](./broadcast-cg-fun/README.md) |
@@ -98,6 +100,7 @@ antigravity-workspace/
 │   └── README.md
 │
 ├── 📂 idol-manager/              # 아이돌 기획사 육성 경영 시뮬레이션 게임 (Python)
+├── 📂 kbo-2026-cheer/            # 애슐리 퀸즈 야구단 응원가 & 프로필 전광판 매니저 (Python)
 ├── 📂 osu-selective-downloader/  # osu! 비트맵 난이도 선택 다운로더 (Chrome Extension)
 ├── 📂 broadcast-cg-fun/          # 실시간 방송 CG 오버레이 & 리모컨 (Next.js)
 ├── 📂 discord-auto-mute/         # 음성인식 Discord 자동 음소거 매니저 (Python)
@@ -139,7 +142,15 @@ pip install -r requirements.txt
 python main.py
 ```
 
-### 3. Web & AI 프로젝트 실행 (`trpg-master-ai`, `dream-capture`, `subway`, `juje-web` 등)
+### 3. KBO 2026 응원가 & 전광판 매니저 실행 (`kbo-2026-cheer`)
+```bash
+cd kbo-2026-cheer
+pip install -r requirements.txt
+python main.py
+# 또는 SMB4_게임실행.bat
+```
+
+### 4. Web & AI 프로젝트 실행 (`trpg-master-ai`, `dream-capture`, `subway`, `juje-web` 등)
 ```bash
 cd subway
 npm install

@@ -1,0 +1,28 @@
+{
+  "lineup": [
+    "서석진",
+    "김민석",
+    "김상훈",
+    "이유준",
+    "김진욱",
+    "이정학",
+    "김범진",
+    "정승찬",
+    "백찬하"
+  ],
+  "positions": [
+    "2B",
+    "3B",
+    "DH",
+    "1B",
+    "SS",
+    "CF",
+    "RF",
+    "C",
+    "LF"
+  ],
+  "active_pitcher": "권영호",
+  "audio_dir": "audio",
+  "process_name": "supermegabaseball.exe",
+  "focus_check": false
+}
