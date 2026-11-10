@@ -1,8 +1,7 @@
 # 🎮 JuJe Bot Engine (주제어 디스코드 파티게임 봇 백엔드 엔진)
 
 > **라즈베리파이(PM2 `juje-bot`)에서 24시간 무중단 구동되는 주제어 디스코드 파티게임 통합 관제 엔진**  
-> 🌐 **웹 룰북 설명서:** [https://juje-bot.vercel.app/](https://juje-bot.vercel.app/)  
-> 🕹️ **웹 게임 클라이언트:** [juje-web](./../juje-web/)  
+> 🌐 **공식 룰북 및 가이드 (Vercel):** [https://juje-bot.vercel.app/](https://juje-bot.vercel.app/)  
 > 주제어 서바이벌, 3라운드 라이어, 바보 라이어, 텔레파시, 제로섬 데스매치, 칼전, 탐정 추리, 영웅시장, 지하철 서바이벌 등 9종 이상의 멀티플레이어 보드게임을 실시간 자동 진행하는 8,290줄 규모의 풀스케일 파이썬 디스코드 봇 서버입니다.
 
 ---

@@ -1,6 +1,7 @@
 # 👑 IDOL Manager (아이돌 기획사 육성 경영 시뮬레이션 게임)
 
 > **Python과 SQLite 기반으로 구축된 풀스케일 K-POP 엔터테인먼트 기획사 경영 시뮬레이터**  
+> 🌐 **공식 위키 / 데이터베이스 (Vercel):** [https://idol-manager-wiki.vercel.app/](https://idol-manager-wiki.vercel.app/)  
 > 연습생 스카우트, 맞춤형 트레이닝, 정규 리그 대결, 앨범 발매, 재무 및 급여 정산까지 기획사 대표로서의 모든 의사결정을 실시간 시뮬레이션 엔진으로 경험할 수 있는 데스크톱 게임입니다.
 
 ---
