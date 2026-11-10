@@ -1,0 +1,14 @@
+체력
+붕대             1d4        1lbs            15G
+초급 물약        1d6        2lbs            20G
+초중급 물약      1d8        2lbs            25G
+중급 물약        2d6        3lbs            35G
+고급 물약        2d8        4lbs            45G
+최고급 물약      2d12       5lbs            60G
+
+비스킷           1d4+2      1lbs            25G
+연어             1d12       3lbs            30G
+팥빙수           2d6+2      3lbs            40G
+샌드위치         4d4        4lbs            50G
+라면             3d6        5lbs            60G
+고기             4d6+5      6lbs            70G

@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+
+# PyInstaller
+build/
+dist/
+
+# Logs
+*.log
+discord_mute_log.txt
+
+# OS Files
+.DS_Store
+Thumbs.db

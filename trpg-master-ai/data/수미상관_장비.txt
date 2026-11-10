@@ -1,0 +1,69 @@
+단순 근접 무기
+그레이트클럽(Greatclub, 대곤봉)                 70G                      
+대거(Dagger, 단검)                             60G
+라이트 해머(Light Hammer, 경량 망치)          50G 
+메이스(Mace, 철퇴)                             60G 
+스피어(Spear, 창)                              70G  
+시클(Sickle, 낫)                                50G 
+자벨린(Javelin, 투창)                            60G 
+쿼터스태프(Quarterstaff, 육척봉)                 65G 
+클럽(Club, 곤봉)                                50G 
+핸드액스(Handaxe, 손도끼)                      60G   
+
+단순 장거리 무기
+다트(Dart)                                      50G  
+라이트 크로스보우(Light Crossbow, 경석궁)       80G  
+숏보우(Shortbow, 단궁)                          65G  
+슬링(Sling, 돌팔매 혹은 무릿매)                   50G 
+
+
+군용 근접 무기
+그레이트소드(Greatsword, 대검)                    120G       
+그레이트액스(Greataxe, 대도끼)                     110G 
+글레이브(Glaive, 장도)                              100G 
+랜스(Lance, 거창)                                  100G 
+레이피어(Rapier)                                    90G
+롱소드(Longsword, 장검)                            100G 
+마울(Maul, 거대망치)                                120G
+모닝스타(Morningstar)                               90G  
+배틀액스(Battleaxe, 전투도끼)                        100G 
+숏소드(Shortsword, 소검)                            75G 
+시미터(Scimitar, 언월도)                             75G
+워 픽(War Pick, 전쟁 곡괭이)                         90G 
+워해머(Warhammer, 전쟁망치)                        100G 
+채찍(Whip) 2gp 1d4 참격 피해                        60G 
+트라이던트(Trident, 삼지창)                           75G 
+파이크(Pike, 장창)                                   110G 
+플레일(Flail, 도리깨)                                  90G 
+할버드(Halberd, 미늘창)                              110G
+
+
+
+군용 장거리 무기
+그물(Net)                                               70G
+롱보우(Longbow, 장궁)                                  100G
+블로우건(Blowgun, 바람총)                               70G
+핸드 크로스보우(Hand Crossbow, 손 석궁)                70G
+헤비 크로스보우(Heavy Crossbow, 중석궁)                110G 
+
+
+경장 갑옷
+패디드                                                  140G
+레더                                                    140G 
+스터디드 레더                                           160G 
+
+평장 갑옷
+하이드                                                   160G 
+체인 셔츠                                                180G 
+스케일 메일                                              220G 
+브레스트플레이트                                          220G 
+하프 플레이트                                             260G 
+
+중장 갑옷
+링 메일                                                    220G 
+체인 메일                                                  260G 
+스플린트                                                   300G 
+플레이트                                                   320G 
+
+방패
+방패                                                        100G
