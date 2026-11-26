@@ -1,86 +1,62 @@
-# 🎙️ Discord Auto Mute (음성인식 기반 Discord 자동 음소거 매니저)
+# 🎙️ Discord Auto Mute - 마이크 음성인식 자동 제어기 사용 매뉴얼
 
-> **게임이나 업무 중 손을 쓰지 않고 목소리만으로 Discord 마이크 음소거 및 통화 종료를 제어하는 핸즈프리 유틸리티**  
-> 백그라운드에서 마이크 입력을 상시 모니터링하여 음성 명령을 감지하면, 디스코드의 글로벌 단축키를 자동으로 호출하여 동작합니다.
+[![Developer: 정승찬](https://img.shields.io/badge/개발자-정승찬%20(jscsarik)-blue.svg)](https://github.com/jscsarik)
+[![Standalone: No Python Required](https://img.shields.io/badge/설치-무설치%20단독실행-success.svg)](#)
 
----
-
-## 🔰 [초간단 3초 실행법] (컴퓨터 초보자 필독!)
-
-**파이썬 설치나 복잡한 명령어 입력이 전혀 필요 없습니다!**
-
-1. **[`dist/discord_mute.exe`](./dist/discord_mute.exe)** 파일을 마우스로 **더블클릭**하세요.
-2. 더블클릭 즉시 백그라운드에서 실행되며, 마이크에 대고 `"마이크 오프"`라고 말하면 디스코드 마이크가 자동으로 음소거됩니다!
-3. 또는 폴더 내의 **[`실행하기.bat`](./실행하기.bat)** 를 더블클릭해도 자동으로 환경을 점검하고 실행해 줍니다.
+> **"게임 중 손가락 하나 까딱할 필요 없이, 목소리만으로 디스코드 마이크를 켜고 끄는 핸즈프리 유틸리티"**  
+> 마이크에 대고 "마이크 오프"라고 말하면 자동으로 음소거되고, "좀 있다 올게"라고 말하면 통화방을 자동으로 나가줍니다.
 
 ---
 
-## 📌 주요 특징 (Key Features)
+## ⚡ 1. 3초 퀵 스타트 (실행 방법)
 
-- 🗣️ **정밀한 음성 명령 인식 (Speech Recognition)**
-  - `"마이크 오프"` / `"마이크 꺼줘"`: 마이크 즉시 음소거/음소거 해제 토글 (`Ctrl + PageDown`)
-  - `"좀 있다 올게"` / `"나갈게"`: 음성 채널 즉시 연결 종료 (`Ctrl + PageUp`)
-- 🔕 **무음 백그라운드 런처 (VBScript)**
-  - `launcher.vbs`를 통해 번거로운 검은색 CMD 창 없이 백그라운드에서 조용하게 실행
-- 🎯 **Discord & Discord Canary 자동 감지**
-  - 시스템에 설치된 Discord 정식 버전 및 Canary 버전을 자동 탐색하여 프로그램과 함께 원클릭 동시 기동
-- 🚀 **원클릭 공식 아이콘 바로가기 자동 생성**
-  - `create_shortcut.py`를 통해 공식 Discord 아이콘이 입혀진 윈도우 바로가기 파일 자동 생성
+**파이썬 설치나 명령어 입력이 전혀 필요 없습니다!**
+
+1. **디스코드(Discord)** 를 먼저 켭니다.
+2. 이 폴더 안에 있는 **[`실행하기.bat`](./실행하기.bat)** (또는 `dist/discord_mute.exe`)를 **더블클릭**합니다.
+3. 검은 창에 `[완료] 백그라운드 대기 중 (Discord 음성인식 모드)`라고 뜨면 모든 준비가 끝난 것입니다!
+4. 이제 평소처럼 게임을 하면서 마이크에 대고 **"마이크 오프"**라고 말해 보세요.
 
 ---
 
-## 🛠️ 기술 스택 (Tech Stack)
+## ⚙️ 2. 디스코드 단축키 설정 (최초 1회만 등록)
 
-- **Language**: Python 3.10+ (추천: Python 3.12 / 3.13)
-- **Speech Engine**: `SpeechRecognition` (Google Speech API), `PyAudio`
-- **System Automation**: `keyboard`, `win32gui`, `win32com`, `psutil`
-- **Packaging & Launch**: PyInstaller, VBScript
+프로그램이 디스코드에 단축키 신호를 보내 마이크를 끄고 켤 수 있도록, 디스코드 설정에 아래 키를 등록해 주세요:
 
----
+1. 디스코드 좌측 하단 **[사용자 설정(톱니바퀴)] ➔ [단축키]**로 이동합니다.
+2. **[단축키 추가하기]** 버튼을 누르고 아래 2개를 등록합니다:
 
-## ⚙️ 사전 설정 (Discord 글로벌 단축키 등록)
-
-프로그램이 Discord를 백그라운드에서 제어할 수 있도록 Discord 설정에서 글로벌 단축키를 먼저 등록해야 합니다.
-
-1. Discord 실행 후 좌측 하단 **[사용자 설정(톱니바퀴)] ➔ [단축키]**로 이동합니다.
-2. **[단축키 추가하기]** 버튼을 클릭하여 아래 두 항목을 등록합니다:
-   - **동작**: `마이크 음소거 전환` / **단축키**: `Ctrl + PageDown`
-   - **동작**: `음성 채널 연결 끊기` / **단축키**: `Ctrl + PageUp`
+| 디스코드 동작 | 지정할 단축키 | 설명 |
+| :--- | :---: | :--- |
+| **마이크 음소거 전환 (Toggle Mute)** | `Ctrl + Page Down` | 음소거 켜기 / 끄기 토글 |
+| **음성 채널 연결 끊기 (Disconnect)** | `Ctrl + Page Up` | 통화방 즉시 나가기 |
+| **화면 공유 토글 (선택 사항)** | `Alt + Page Up` | 화면 공유 / 방송 종료 |
 
 ---
 
-## 🚀 빠른 시작 (Getting Started)
+## 🗣️ 3. 음성 명령어 사전 (이렇게 말하면 동작합니다!)
 
-### 1. 필수 라이브러리 설치
-```bash
-pip install speechrecognition keyboard psutil pywin32 pyaudio
-```
-> [!TIP]  
-> Windows 환경에서 `pyaudio` 설치 시 컴파일러 오류가 발생할 경우:  
-> `pip install pipwin` 실행 후 `pipwin install pyaudio` 명령어를 입력하세요.
+프로그램이 일상 대화와 명령어를 똑똑하게 구분하여 인식합니다:
 
-### 2. 바로가기 생성
-```bash
-python create_shortcut.py
-```
-폴더 내에 `Discord Canary (음성인식).lnk` 바로가기 파일이 생성됩니다.
-
-### 3. 프로그램 실행
-- 생성된 바로가기를 더블 클릭하거나 `launcher.vbs`를 실행하면 Discord와 음성인식 매니저가 백그라운드에서 동시에 켜집니다.
-- 디버깅용으로 콘솔 로그를 보며 실행하려면:
-  ```bash
-  python discord_mute.py
-  ```
+* 🎤 **마이크 끄기 / 켜기 (음소거 토글):**
+  * `"마이크"`, `"마이크 오프"`, `"마이크 꺼줘"`, `"마이크 켜"`, `"음소거"`, `"뮤트"`, `"마이클 오프"`, `"mic off"`
+* 🚪 **통화방 즉시 나가기 (연결 종료):**
+  * `"좀 있다 올게"`, `"좀이따"`, `"좀있다"`, `"이따옴"`, `"나갈게"`, `"연결 끊기"`
+* 🖥️ **화면 공유 / 방송 끄기:**
+  * `"방송"`, `"화공"`, `"방종"`, `"방송 오프"`, `"화면공유 종료"`
 
 ---
 
-## 📂 프로젝트 구조 (Project Structure)
+## ❓ 4. 자주 묻는 질문 (FAQ)
 
-```text
-├── discord_mute.py          # 마이크 음성 감지 및 단축키 트리거 메인 엔진
-├── launcher.vbs             # CMD 창 없는 백그라운드 무음 실행 런처
-├── create_shortcut.py       # Discord 아이콘 연동 바로가기 자동 생성기
-├── discord_mute.spec        # PyInstaller 단일 실행파일 빌드 구성
-├── discord_mute_debug.spec  # PyInstaller 디버그 모드 빌드 구성
-└── README.md
-```
+### Q1. 게임 화면 안에서 말했는데 음소거가 안 돼요!
+> 👉 롤(LoL), 발로란트, 서든어택 등 관리자 권한으로 실행되는 게임을 전체화면으로 하실 때는, [실행하기.bat](./실행하기.bat)를 **마우스 우클릭 ➔ [관리자 권한으로 실행]**으로 켜주세요. 윈도우 보안을 통과하여 게임 중에도 100% 인식됩니다.
+
+### Q2. 헤드셋 마이크 말고 다른 마이크(웹캠 등)로 소리가 들어가는 것 같아요.
+> 👉 프로그램이 자동으로 게임패드나 가상 마이크를 배제하고 실제 헤드셋/마이크를 1순위로 잡아줍니다. 콘솔 창의 `[마이크 연결] '장치 이름' 선택됨` 문구에서 현재 선택된 마이크를 확인하실 수 있습니다.
+
+---
+
+## 👨‍💻 제작자 정보
+* **개발자:** 정승찬 (jscsarik)
+* **저장소:** [https://github.com/jscsarik/jsc_projects/tree/main/discord-auto-mute](https://github.com/jscsarik/jsc_projects/tree/main/discord-auto-mute)

@@ -1,93 +1,53 @@
-# 🔍 Windows Search Tray Tool (시스템 트레이 로컬 파일 실시간 검색기)
+# 🔍 Windows Search Tray Tool - 초고속 로컬 파일/가사 검색기 사용 매뉴얼
 
-> **Windows 시스템 트레이에 상주하며 로컬 디스크의 파일명 및 텍스트 본문 내용을 실시간으로 인덱싱하고 초고속으로 검색하는 데스크톱 유틸리티**  
-> `watchdog` 기반의 실시간 파일시스템 변경 감지와 자동 인코딩 감지(`chardet`)를 통해 가볍고 빠른 로컬 검색 환경을 제공합니다.
+[![Developer: 정승찬](https://img.shields.io/badge/개발자-정승찬%20(jscsarik)-blue.svg)](https://github.com/jscsarik)
+[![Standalone Executable](https://img.shields.io/badge/실행-무설치%20단독실행-success.svg)](#)
 
----
-
-## 🔰 [초간단 3초 실행법] (컴퓨터 초보자 필독!)
-
-**파이썬 설치나 복잡한 터미널 명령어를 입력할 필요가 전혀 없습니다!**
-
-1. **[`dist/local_search_tray.exe`](./dist/local_search_tray.exe)** 파일을 마우스로 **더블클릭**하세요.
-2. 더블클릭하자마자 윈도우 오른쪽 아래 시계 옆(시스템 트레이)에 돋보기 아이콘이 나타납니다.
-3. 아이콘을 클릭하거나 검색창을 열어 원하는 단어나 파일명을 치면 실시간으로 초고속 검색됩니다!
-4. 또는 폴더 내의 **[`실행하기.bat`](./실행하기.bat)** 를 더블클릭하셔도 됩니다.
+> **"수백, 수천 개의 텍스트 파일과 노래 가사 속 단어까지 0.1초 만에 찾아내는 실시간 데스크톱 검색기"**  
+> 파일 이름은 물론 문서 속 본문 텍스트 내용까지 실시간으로 인덱싱하여 원하는 내용을 즉시 찾아줍니다.
 
 ---
 
-## 📌 주요 특징 (Key Features)
+## ⚡ 1. 3초 퀵 스타트 (실행 방법)
 
-- 🗂️ **실시간 파일시스템 감시 (`watchdog`)**
-  - 지정된 디렉토리의 파일 생성, 수정, 삭제 이벤트를 백그라운드 스레드에서 실시간 포착 및 인덱스 자동 갱신
-- 📝 **문서 본문 텍스트 실시간 검색**
-  - 파일 이름뿐만 아니라 문서 파일(`txt`, `md`, `log`, `csv` 등)의 내부 텍스트 내용까지 실시간 탐색
-  - `chardet` 라이브러리를 통해 UTF-8, CP949/EUC-KR 등 다양한 인코딩을 자동 판별하여 한글 깨짐 방지
-- 💻 **시스템 트레이 상주 & 핫키 지원**
-  - 트레이 아이콘 최소화 기능으로 시스템 리소스 점유 최소화
-  - 작업 표시줄 방해 없이 언제든 필요할 때 팝업하여 즉시 검색
-- 📦 **단일 독립 실행 파일(.exe) 빌드 지원**
-  - Python이 설치되지 않은 PC에서도 바로 실행할 수 있도록 `build_exe.bat` 원클릭 PyInstaller 빌드 스크립트 제공
+**파이썬 설치가 전혀 필요 없습니다!**
+
+1. 이 폴더 안에 있는 **[`dist/local_search_tray.exe`](./dist/local_search_tray.exe)** (또는 [`실행하기.bat`](./실행하기.bat)) 파일을 마우스로 **더블클릭**합니다.
+   * 💡 *참고: `C:\정승찬\노래 월드컵` 폴더 안에 있는 `local_search_tray.exe`를 바로 더블클릭하셔도 됩니다!*
+2. 화면 맨 앞에 모던 다크 차콜 스타일의 세련된 검색창이 즉시 열립니다.
+3. 동시에 윈도우 우측 하단 시계 옆(시스템 트레이)에 돋보기 아이콘이 등록되어 언제든 열고 닫을 수 있습니다.
 
 ---
 
-## 🛠️ 기술 스택 (Tech Stack)
+## 🔍 2. 주요 사용법 & 조작 가이드
 
-- **Language**: Python 3.10+
-- **GUI Framework**: Tkinter / ttk
-- **Filesystem Monitoring**: `watchdog`
-- **Text & Encoding**: `chardet`
-- **Image Processing**: `Pillow` (PIL)
-- **Packaging**: PyInstaller
+### ⌨️ 실시간 본문 검색
+* 검색창에 찾고 싶은 **가수 이름, 노래 제목, 또는 가사 속 단어**를 입력하세요.
+* 엔터를 칠 필요 없이 한 글자 입력할 때마다 실시간으로 일치하는 문서 목록과 해당 문장이 미리보기로 표시됩니다.
 
----
+### 📄 파일 즉시 열기
+* 검색 결과 목록에서 원하는 항목을 **마우스로 더블클릭**하면 해당 텍스트 파일이 윈도우 메모장으로 즉시 열립니다.
 
-## 🚀 빠른 시작 (Getting Started)
+### 🔕 트레이 숨기기 / 다시 열기
+* 검색창 우측 상단의 `X` 버튼을 누르면 프로그램이 꺼지지 않고 시스템 트레이(시계 옆 돋보기)로 쏙 숨어 리소스를 아낍니다.
+* 시계 옆 돋보기 아이콘을 클릭하면 언제든 검색창이 다시 화면 맨 앞으로 팝업됩니다.
 
-### 1. 필수 라이브러리 설치
-폴더 내의 `install_dependencies.bat`을 실행하거나 명령 프롬프트에서 아래 명령어를 입력합니다:
-```bash
-pip install -r requirements.txt
-# 또는
-pip install watchdog chardet pillow
-```
-
-### 2. 프로그램 실행 (Python)
-```bash
-python local_search_tray.py
-```
-
-### 3. 독립 실행파일(.exe) 빌드
-독립 실행 가능한 단일 파일로 배포하려면:
-```bash
-build_exe.bat
-```
-빌드가 완료되면 `dist/local_search_tray.exe` 파일이 생성됩니다.
+### 📂 자동 감시 디렉토리
+* `C:\정승찬\노래 월드컵` 폴더가 있는 경우 해당 폴더의 텍스트 파일들을 우선적으로 실시간 자동 감시합니다.
+* 다른 노트북 등 해당 폴더가 없는 PC에서는 프로그램이 위치한 현재 폴더의 파일들을 자동으로 스캔합니다.
 
 ---
 
-## 🔬 연구 및 진단 스크립트 (`research/`)
+## ❓ 3. 자주 묻는 질문 (FAQ)
 
-`research/` 폴더에는 개발 과정에서 Windows Search 서비스 및 COM 인터페이스, 레지스트리 설정을 분석하기 위해 작성된 유틸리티가 보관되어 있습니다:
+### Q1. 바로가기 오류("항목이 변경되었거나 옮겨졌기 때문에...")가 떠요!
+> 👉 이전 2KB짜리 깨진 바로가기 파일 대신, 폴더 안에 있는 진짜 **10.3MB 실행 파일(`local_search_tray.exe`)**을 누르시면 오류 없이 영구적으로 즉시 켜집니다.
 
-- `check_search_service.py`: Windows Search(`WSearch`) 서비스 상태 및 가동 여부 점검
-- `check_search_reg.py`: Windows Search 레지스트리 설정 트리 구조 조회
-- `check_search_roots.py`: Windows Search 인덱서의 기본 크롤링 루트 경로 조회
-- `check_working_set.py`: 프로세스 메모리 워킹 셋(Working Set) 점유율 측정
-- `test_com.py`: Windows Desktop Search COM 인터페이스(`ISearchManager`) 호출 테스트
-- `test_ps_com.py`: PowerShell 기반 COM 객체 연동 테스트
+### Q2. 한글 파일의 글자가 깨져서 검색이 안 되는 경우가 있나요?
+> 👉 자동 인코딩 판별 엔진(`chardet`)이 탑재되어 있어 `UTF-8`, `CP949(EUC-KR)`, `ANSI` 등 어떤 형식으로 저장된 메모장 파일이든 한글 깨짐 없이 완벽하게 읽어옵니다.
 
 ---
 
-## 📂 프로젝트 구조 (Project Structure)
-
-```text
-├── local_search_tray.py     # 트레이 상주 검색기 메인 프로그램
-├── local_search_tray.spec   # PyInstaller 빌드 구성 파일
-├── build_exe.bat            # PyInstaller 자동 빌드 배치 파일
-├── install_dependencies.bat # 필수 패키지 자동 설치 배치 파일
-├── requirements.txt         # 의존성 패키지 목록
-├── app_icon.ico             # 애플리케이션 및 트레이 아이콘
-├── research/                # Windows Search COM / 레지스트리 진단 스크립트 모음
-└── README.md
-```
+## 👨‍💻 제작자 정보
+* **개발자:** 정승찬 (jscsarik)
+* **저장소:** [https://github.com/jscsarik/jsc_projects/tree/main/win-search-tool](https://github.com/jscsarik/jsc_projects/tree/main/win-search-tool)

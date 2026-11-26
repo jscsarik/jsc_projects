@@ -1,62 +1,43 @@
-# 🖥️ Virtual Monitor Tools (가상 모니터 드라이버 진단 및 복구 도구)
+# 🖥️ Virtual Monitor Tools - 가상 모니터 진단 및 원클릭 복구 사용 매뉴얼
 
-> **Windows 가상 디스플레이(Virtual Display Driver / IddCx VDD)의 상태를 실시간 진단하고, 드라이버를 원클릭으로 복구하는 시스템 유틸리티 모음**  
-> 다중 모니터 환경에서 가상 디스플레이가 비활성화되거나 인식되지 않을 때 UAC 관리자 권한을 자동으로 획득하여 신속히 활성화합니다.
+[![Developer: 정승찬](https://img.shields.io/badge/개발자-정승찬%20(jscsarik)-blue.svg)](https://github.com/jscsarik)
+[![Utility: Windows Display](https://img.shields.io/badge/유틸리티-Windows%20Display%20IddCx-0078D6.svg)](#)
 
----
-
-## 📌 주요 특징 및 도구 목록 (Key Features & Tools)
-
-| 스크립트 파일 | 언어 | 설명 | 실행 권한 |
-| :--- | :---: | :--- | :---: |
-| **`check_monitors.py`** | Python | `mss` 라이브러리를 통해 현재 시스템에 연결된 전체 모니터의 해상도, 좌표, 개수 및 가상 모니터(Index 3) 인식 여부를 진단 | 일반 사용자 |
-| **`restore_monitor.py`** | Python | 관리자 권한(UAC)을 자동 요청하고, `deviceinstaller64.exe enablevdd`를 실행하여 꺼진 가상 모니터를 즉시 복구 | 관리자 권한 (자동 승격) |
-| **`restore_monitor.ps1`** | PowerShell | PowerShell 환경에서 가상 디스플레이 디바이스를 초기화 및 재기동하는 복구 스크립트 | 관리자 권한 필요 |
-| **`install_driver.ps1`** | PowerShell | 가상 디스플레이 드라이버(VDD) INF 등록 및 장치 설치를 자동화하는 파워쉘 스크립트 | 관리자 권한 필요 |
+> **"원격 접속, 방송 송출, 다중 디스플레이 작업 시 가상 모니터가 꺼지거나 인식되지 않을 때 원클릭으로 되살리는 도구"**  
+> 관리자 권한(UAC)을 자동으로 획득하여 윈도우 디스플레이 드라이버(VDD)를 즉시 활성화하고 상태를 진단합니다.
 
 ---
 
-## 🛠️ 기술 스택 (Tech Stack)
+## ⚡ 1. 3초 퀵 스타트 (실행 방법)
 
-- **Language**: Python 3.10+, PowerShell 5.1+
-- **Monitor API**: `mss` (Multi-Screen Screenshot & Device Query)
-- **Windows System**: Windows Display Driver Model (IddCx), UAC Elevation (`ctypes.windll.shell32`)
-
----
-
-## 🚀 빠른 시작 (Getting Started)
-
-### 1. 모니터 상태 진단
-```bash
-pip install mss
-python check_monitors.py
-```
-출력 예시:
-```text
-Platform: Windows 10
-Monitors: 3
-Monitor 0: {'left': 0, 'top': 0, 'width': 3840, 'height': 2160}
-...
-RESULT: Virtual Monitor Index 3 Found!
-```
-
-### 2. 가상 모니터 즉시 복구
-가상 모니터가 연결 해제되었거나 감지되지 않을 때 실행:
-```bash
-python restore_monitor.py
-```
-
-> [!NOTE]  
-> `restore_monitor.py` 실행 시 Windows 관리자 권한(UAC) 확인 창이 뜨면 **'예'**를 클릭하여 드라이버를 활성화합니다.
+1. 이 폴더 안에 있는 **[`실행하기.bat`](./실행하기.bat)** 파일을 마우스로 **더블클릭**합니다.
+2. 화면에 나타나는 메뉴에서 원하는 번호를 입력합니다:
+   ```text
+   [1] 🛠️ 가상 모니터 원클릭 복구 실행 (가장 추천)
+   [2] 🔍 현재 디스플레이 모니터 상태 진단
+   [0] 🚪 나가기
+   ```
+3. `1`을 입력하고 엔터를 치면 관리자 권한 승인 창이 뜬 후, 꺼져있던 가상 모니터가 즉시 켜집니다!
 
 ---
 
-## 📂 프로젝트 구조 (Project Structure)
+## 🛠️ 2. 제공되는 도구별 기능 안내
 
-```text
-├── check_monitors.py        # 다중 모니터 실시간 좌표/해상도 상태 진단
-├── restore_monitor.py       # UAC 승격 및 enablevdd 실행 복구기
-├── restore_monitor.ps1      # PowerShell 가상 모니터 복구 스크립트
-├── install_driver.ps1       # PowerShell 드라이버 신규 설치 스크립트
-└── README.md
-```
+| 파일 이름 | 기능 설명 | 사용 시점 |
+| :--- | :--- | :--- |
+| **`실행하기.bat`** | 복구와 진단을 한 번에 선택할 수 있는 통합 매뉴얼 런처 | 평소에 언제든 가상 모니터를 조작할 때 |
+| **`가상모니터_복구_실행.bat`** | 관리자 권한으로 가상 디스플레이 드라이버 즉시 활성화 | 가상 모니터가 꺼져서 화면 확장이 안 될 때 |
+| **`가상모니터_상태_진단.bat`** | 현재 연결된 모든 모니터의 해상도, 좌표, 개수 출력 | 모니터 연결 상태가 정상인지 점검할 때 |
+
+---
+
+## ❓ 3. 자주 묻는 질문 (FAQ)
+
+### Q1. '사용자 계정 컨트롤(UAC)' 파란 창이 뜨면서 허용하시겠습니까? 라고 물어요.
+> 👉 윈도우 하드웨어 디스플레이 드라이버를 직접 깨우기 위해 필요한 공식 절차입니다. 안심하시고 **[예]**를 클릭해 주시면 됩니다.
+
+---
+
+## 👨‍💻 제작자 정보
+* **개발자:** 정승찬 (jscsarik)
+* **저장소:** [https://github.com/jscsarik/jsc_projects/tree/main/virtual-monitor-tools](https://github.com/jscsarik/jsc_projects/tree/main/virtual-monitor-tools)

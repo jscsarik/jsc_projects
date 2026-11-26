@@ -1,77 +1,51 @@
-# 🎵 가무음곡 (KaMuEumGok / 歌舞音曲)
+# 🎵 가무음곡 (KaMuEumGok) - 감성 로컬 음악 플레이어 사용 매뉴얼
 
-> **Next.js 16과 Electron을 결합한 차세대 로컬 데스크톱 오디오 & 뮤직 플레이어**  
-> 감각적인 UI와 부드러운 애니메이션(`framer-motion`), 그리고 로컬 음원 메타데이터 실시간 파싱(`music-metadata`)을 통해 최상의 음악 감상 경험을 제공하는 네이티브 플레이어입니다.
+[![Developer: 정승찬](https://img.shields.io/badge/개발자-정승찬%20(jscsarik)-blue.svg)](https://github.com/jscsarik)
+[![Framework: Electron + Next.js](https://img.shields.io/badge/프레임워크-Electron%20%2B%20Next.js-47848F.svg)](https://www.electronjs.org/)
 
----
-
-## 🔰 [초간단 3초 실행법] (컴퓨터 초보자 필독!)
-
-**터미널(CMD) 열 필요 없고, `npm install` 같은 복잡한 명령어 칠 필요 전혀 없습니다!**
-
-1. 이 폴더 안에 있는 **[`실행하기.bat`](./실행하기.bat)** 파일을 마우스로 **더블클릭**하세요.
-2. *(최초 1회 실행 시)* 프로그램에 필요한 부품을 인터넷에서 스스로 다운받아 조립하느라 검은 창이 10~30초 정도 뜰 수 있습니다. **절대 오류가 아니니 잠시만 기다려주시면** 감성적인 음악 플레이어 창이 자동으로 열립니다!
-3. 만약 화면에 빨간 글씨로 "Node.js가 설치되어 있지 않습니다"라고 뜬다면, [Node.js 공식 다운로드](https://nodejs.org/)에서 초록색 **LTS 버전** 버튼을 눌러 설치(다음만 계속 클릭)한 뒤 다시 더블클릭하시면 됩니다.
+> **"내 컴퓨터에 저장된 음악 파일들을 가장 아름답고 감각적으로 감상하는 네이티브 데스크톱 플레이어"**  
+> 복잡한 설정 없이, 클릭 한 번으로 내 PC의 오디오 파일을 앨범 아트와 함께 고음질로 재생합니다.
 
 ---
 
-## 📌 주요 특징 (Key Features)
+## ⚡ 1. 3초 퀵 스타트 (실행 방법)
 
-- 🖥️ **Electron 기반 네이티브 데스크톱 플레이어**
-  - 커스텀 스트리밍 프로토콜(`music-app://`)을 통한 대용량 고음질 무손실 음원 실시간 스트리밍
-  - 앱 시작 시 커스텀 스플래시(Splash) 로고 화면 및 보더리스 윈도우 지원
-- 📂 **로컬 디렉토리 재귀적 음원 스캐닝**
-  - PC 내 지정 폴더의 오디오 파일(`mp3`, `flac`, `wav`, `m4a` 등)을 고속 탐색
-  - `music-metadata` 라이브러리를 통해 앨범 아트워크, 아티스트, 앨범명, 트랙 정보 자동 추출
-- 🎛️ **Next.js 16 + Framer Motion 인터페이스**
-  - 재생 바, 가사 뷰, 플레이리스트 큐, 재생/일시정지/셔플 모드 애니메이션
-- 🚀 **백그라운드 무음 런처 지원**
-  - `KaMuEumGok.bat` 및 `Run_start.vbs`를 통한 터미널 창 없는 깔끔한 실행 지원
+**웹 브라우저를 켤 필요도, `http://localhost:3000`을 입력할 필요도 없습니다!**
+
+1. 폴더 안에 있는 **[`실행하기.bat`](./실행하기.bat)** 파일을 마우스로 **더블클릭**합니다.
+2. 0.2초 만에 자체 경량 서버가 구동되면서 감성적인 전용 플레이어 창이 화면에 즉시 나타납니다.
+3. *(최초 1회 실행 시)* 필요한 부품(Electron)을 자동으로 조립하느라 검은 창이 약 10~20초 정도 뜰 수 있습니다. 절대 오류가 아니니 잠시만 기다려 주시면 플레이어가 짠 하고 켜집니다!
 
 ---
 
-## 🛠️ 기술 스택 (Tech Stack)
+## 🎧 2. 주요 기능 및 화면 조작법
 
-- **Desktop Framework**: [Electron 40](https://www.electronjs.org/)
-- **Web Framework**: [Next.js 16 (Turbopack)](https://nextjs.org/)
-- **Frontend**: React 19, TypeScript, Tailwind CSS, Framer Motion, Lucide React
-- **Audio Engine**: `music-metadata` (ID3v2, FLAC Vorbis 메타데이터 파싱)
+### 📂 내 음악 폴더 불러오기
+* 플레이어 화면 좌측 메뉴에서 **[폴더 열기]** 또는 탐색 아이콘을 클릭합니다.
+* 음악이 들어있는 내 컴퓨터 폴더(예: `C:\음악` 또는 `C:\정승찬\노래 월드컵`)를 선택하면, 폴더 안의 모든 노래를 자동으로 스캔하여 플레이리스트로 정리해 줍니다.
+* **지원 형식:** `MP3`, `FLAC`, `WAV`, `M4A`, `AAC`, `OGG` 등 모든 오디오 포맷 지원
 
----
+### 🎛️ 재생 제어
+* **재생 / 일시정지:** 하단 컨트롤 바의 재생 버튼 또는 키보드 `Space`
+* **이전 곡 / 다음 곡:** `◀◀`, `▶▶` 버튼
+* **셔플 (랜덤 재생) & 반복 재생:** 컨트롤 바 좌측 아이콘으로 한 곡 반복 / 전곡 반복 / 랜덤 재생 전환
 
-## 🚀 빠른 시작 (Getting Started)
-
-### 1. 사전 요구사항
-- Node.js 20.0 이상
-- npm / yarn
-
-### 2. 패키지 설치
-```bash
-npm install
-```
-
-### 3. 개발 모드 실행 (Next.js + Electron 동시 구동)
-```bash
-npm run electron:dev
-```
-Next.js 개발 서버가 실행된 뒤 자동으로 Electron 창이 연동되어 켜집니다.
-
-### 4. 웹 모드만 단독 실행
-```bash
-npm run dev
-```
-브라우저에서 `http://localhost:3000`으로 접속합니다.
+### 🎨 앨범 아트 & 메타데이터 자동 추출
+* 음원 파일 속에 포함된 앨범 자켓 이미지, 가수 이름, 앨범명, 발매 연도를 자동으로 읽어와 감각적인 비주얼로 화면에 띄워줍니다.
 
 ---
 
-## 📂 프로젝트 구조 (Project Structure)
+## ❓ 3. 자주 묻는 질문 (FAQ)
 
-```text
-├── main.js                  # Electron 메인 프로세스 (프로토콜 등록, 윈도우 생성, 파일시스템 I/O)
-├── preload.js               # Electron 렌더러 IPC 보안 브릿지
-├── src/                     # Next.js 프론트엔드 (플레이어 UI, 애니메이션 컴포넌트)
-├── KaMuEumGok.bat           # 윈도우 실행 배치 스크립트
-├── Run_start.vbs            # 백그라운드 무음 실행 스크립트
-├── icon.ico / icon.png      # 애플리케이션 아이콘
-└── package.json
-```
+### Q1. "Node.js가 설치되어 있지 않습니다"라고 떠요.
+> 👉 내 컴퓨터에 자바스크립트 엔진이 없는 상태입니다.  
+> [Node.js 공식 다운로드](https://nodejs.org/)에서 초록색 **LTS 버전**을 받아 [다음(Next)]만 계속 누르고 설치해 주시면 즉시 해결됩니다.
+
+### Q2. 예전처럼 `localhost:3000` 창이 따로 뜨나요?
+> 👉 **아닙니다!** 최신 업데이트를 통해 외부에 웹 서버나 브라우저를 띄우지 않고, 앱 내부에서 초고속으로 화면을 직접 로딩하도록 완전 독립형으로 개선되었습니다.
+
+---
+
+## 👨‍💻 제작자 정보
+* **개발자:** 정승찬 (jscsarik)
+* **저장소:** [https://github.com/jscsarik/jsc_projects/tree/main/kamueumgok](https://github.com/jscsarik/jsc_projects/tree/main/kamueumgok)
