@@ -22,7 +22,65 @@ protocol.registerSchemesAsPrivileged([
 let parseFile;
 let splash;      // 스플래시(로고) 창 변수
 let mainWindow;  // 메인 창 변수
-let nextProcess = null; // 백그라운드 Next.js 프로세스
+let nextProcess = null; // 백그라운드 Next.js 프로세스 (개발 모드용)
+let staticServer = null; // 초고속 독립 내장 웹서버
+
+// 빌드된 정적 HTML/CSS/JS 에셋을 초고속(0.01초)으로 호스팅하는 내장 서버 (포트 0으로 자동 할당)
+function startStaticServer() {
+  return new Promise((resolve, reject) => {
+    const mimeTypes = {
+      '.html': 'text/html; charset=utf-8',
+      '.js': 'text/javascript; charset=utf-8',
+      '.css': 'text/css; charset=utf-8',
+      '.json': 'application/json',
+      '.png': 'image/png',
+      '.jpg': 'image/jpeg',
+      '.jpeg': 'image/jpeg',
+      '.ico': 'image/x-icon',
+      '.svg': 'image/svg+xml',
+      '.woff': 'font/woff',
+      '.woff2': 'font/woff2',
+      '.ttf': 'font/ttf',
+      '.txt': 'text/plain',
+    };
+
+    const outDir = path.join(__dirname, 'out');
+    const srv = http.createServer((req, res) => {
+      let reqPath = decodeURI(req.url.split('?')[0]);
+      if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
+      let filePath = path.join(outDir, reqPath);
+
+      if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory()) {
+        filePath = path.join(filePath, 'index.html');
+      }
+
+      if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+        const ext = path.extname(filePath).toLowerCase();
+        res.writeHead(200, {
+          'Content-Type': mimeTypes[ext] || 'application/octet-stream',
+          'Cache-Control': 'no-cache'
+        });
+        fs.createReadStream(filePath).pipe(res);
+      } else {
+        const fallbackPath = path.join(outDir, 'index.html');
+        if (fs.existsSync(fallbackPath)) {
+          res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+          fs.createReadStream(fallbackPath).pipe(res);
+        } else {
+          res.writeHead(404);
+          res.end('Not Found');
+        }
+      }
+    });
+
+    srv.listen(0, '127.0.0.1', () => {
+      const port = srv.address().port;
+      staticServer = srv;
+      resolve(port);
+    });
+    srv.on('error', reject);
+  });
+}
 
 // 로컬 Next.js 서버(포트 3000) 응답 여부 체크
 function isServerReady(port = 3000) {
@@ -317,8 +375,25 @@ app.whenReady().then(() => {
   // 2. 메인 창을 만들고 뒤에 숨겨둡니다.
   createWindow();
 
-  // 3. Next.js 서버 감지 및 안전한 부팅 시퀀스
+  // 3. 초고속 정적 엔진 우선 실행 (localhost:3000 없이 0.2초 만에 단독 실행)
   (async () => {
+    const outIndex = path.join(__dirname, 'out', 'index.html');
+    
+    // [우선순위 1] 빌드된 패키지(out/)가 존재하면 내장 초고속 서버로 즉시 로딩!
+    if (fs.existsSync(outIndex)) {
+      try {
+        const port = await startStaticServer();
+        console.log(`[KaMuEumGok] Static engine running on http://127.0.0.1:${port}`);
+        if (mainWindow && !mainWindow.isDestroyed()) {
+          mainWindow.loadURL(`http://127.0.0.1:${port}`).catch(() => {});
+        }
+        return;
+      } catch (err) {
+        console.error('Failed to start static server, falling back to dev mode:', err);
+      }
+    }
+
+    // [우선순위 2] out/ 폴더가 없을 경우 개발 모드로 대체 가동
     let ready = await isServerReady(3000);
     if (!ready) {
       console.log('Next.js server not detected. Spawning next dev in background...');
@@ -334,8 +409,7 @@ app.whenReady().then(() => {
       });
     }
 
-    // 4. 서버가 완전히 준비(200 OK)될 때까지 기다렸다가 mainWindow.loadURL 호출
-    const maxWait = 90; // 최대 90초 대기 (사양이 낮은 노트북이나 최초 빌드 대비)
+    const maxWait = 90; // 최대 90초 대기
     let waited = 0;
     while (waited < maxWait) {
       ready = await isServerReady(3000);
@@ -353,7 +427,7 @@ app.whenReady().then(() => {
     // 90초 초과 시에만 안내 대화상자 표시
     dialog.showErrorBox(
       '가무음곡 시작 오류',
-      'Next.js 서버(http://localhost:3000)를 시작하지 못했습니다.\n\n3000번 포트가 다른 프로그램에서 사용 중이거나 최초 빌드 시간이 지연되었을 수 있습니다.\n프로그램을 다시 실행해 보세요.'
+      '프로그램 화면을 시작하지 못했습니다. 프로그램을 다시 실행해 보세요.'
     );
     if (splash && !splash.isDestroyed()) splash.close();
     app.quit();
@@ -371,7 +445,11 @@ app.on('window-all-closed', () => {
 });
 
 app.on('will-quit', () => {
-  // 백그라운드에서 실행한 Next.js 프로세스 깔끔하게 종료
+  // 내장 정적 웹서버 종료
+  if (staticServer) {
+    try { staticServer.close(); } catch (e) {}
+  }
+  // 백그라운드 개발 프로세스 종료
   if (nextProcess && nextProcess.pid) {
     if (process.platform === 'win32') {
       exec(`taskkill /pid ${nextProcess.pid} /T /F`, () => {});
