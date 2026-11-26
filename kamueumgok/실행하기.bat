@@ -44,5 +44,15 @@ if not exist "%~dp0node_modules" (
 
 :: 3. 가무음곡 실행
 echo [실행 중] 가무음곡(KaMuEumGok)을 시작합니다. 잠시만 기다려 주세요...
-start "" npx electron .
+
+:: 이전 실행에서 멈춰있던 3000번 포트의 잔여 node 프로세스 정리
+for /f "tokens=5" %%a in ('netstat -aon ^| findstr :3000 ^| findstr LISTENING 2^>nul') do (
+    tasklist /fi "pid eq %%a" 2^>nul | findstr /i "node" >nul && taskkill /f /pid %%a >nul 2>&1
+)
+
+if exist "%~dp0node_modules\.bin\electron.cmd" (
+    start "" "%~dp0node_modules\.bin\electron.cmd" .
+) else (
+    start "" npx electron .
+)
 exit /b 0
