@@ -30,8 +30,13 @@ except ImportError as e:
 # ====================================================
 # [설정 및 전역 변수]
 # ====================================================
-TARGET_DIR = r"C:\정승찬\노래 월드컵"
-os.makedirs(TARGET_DIR, exist_ok=True)  # 대상 폴더가 없으면 자동 생성
+C_DIR = r"C:\정승찬\노래 월드컵"
+if os.path.isdir(C_DIR):
+    TARGET_DIR = C_DIR
+else:
+    # C:\정승찬\노래 월드컵 폴더가 없는 환경(타 노트북 등)에서는 현재 폴더 자동 감시
+    TARGET_DIR = os.path.abspath(os.path.dirname(__file__))
+os.makedirs(TARGET_DIR, exist_ok=True)
 
 # 스레드 간 안전한 통신을 위한 FIFO 큐
 event_queue = queue.Queue()
@@ -329,7 +334,9 @@ def build_gui():
     # 윈도우 프레임 제거 및 플랫 룩앤필 적용 (border 3D 완전 배제)
     root.overrideredirect(True)
     root.attributes("-alpha", 1.0)
-    root.attributes("-topmost", False)
+    root.attributes("-topmost", True)  # 화면 최상단으로 띄워서 즉시 노출!
+    root.lift()
+    root.focus_force()
     
     # 아이콘 설정 (app_icon.ico 파일이 존재하면 적용)
     try:

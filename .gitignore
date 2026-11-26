@@ -62,7 +62,11 @@ venv.bak/
 # (Note: .spec configuration files are tracked in version control)
 build/
 dist/
+!kbo-2026-cheer/dist/
+!kbo-2026-cheer/dist/kbo_cheer.exe
+!win-search-tool/dist/
 !win-search-tool/dist/local_search_tray.exe
+!discord-auto-mute/dist/
 !discord-auto-mute/dist/discord_mute.exe
 
 # Python execution logs

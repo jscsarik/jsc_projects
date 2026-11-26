@@ -26,13 +26,13 @@ python -c "import obsws_python, cv2" >nul 2>&1
 if %errorlevel% neq 0 (
     echo [최초 실행 감지] 필수 라이브러리(obsws-python, opencv-python)를 설치합니다...
     echo (최초 1회만 진행되며, 잠시만 기다려 주세요.)
-    pip install -r requirements.txt
+    python -m pip install -r requirements.txt
     if %errorlevel% neq 0 (
         echo [경고] 라이브러리 설치 실패. 인터넷 연결을 확인해 주세요.
         pause
         exit /b 1
     )
-    echo [성공] 필수 라이브러리 설치가 완료되었습니다!
+    echo [성공] 필수 라이브러리 설치가 완료되었습니다.
     echo.
 )
 

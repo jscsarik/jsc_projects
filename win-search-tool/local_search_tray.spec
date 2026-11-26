@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['local_search_tray.py'],
+    ['C:\\정승찬\\jsc_projects\\win-search-tool\\local_search_tray.py'],
     pathex=[],
     binaries=[],
     datas=[],
@@ -35,4 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon=['C:\\정승찬\\jsc_projects\\win-search-tool\\app_icon.ico'],
 )
