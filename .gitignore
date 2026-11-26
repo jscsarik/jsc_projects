@@ -61,6 +61,8 @@ venv.bak/
 # (Note: .spec configuration files are tracked in version control)
 build/
 dist/
+!win-search-tool/dist/local_search_tray.exe
+!discord-auto-mute/dist/discord_mute.exe
 
 # Python execution logs
 *.log

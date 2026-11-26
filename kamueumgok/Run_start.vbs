@@ -1,4 +1,6 @@
 Set WshShell = CreateObject("WScript.Shell")
-' 0은 창 숨김 모드, False는 기다리지 않고 바로 실행하라는 뜻입니다.
-WshShell.Run chr(34) & "C:\KaMuEumGok\KaMuEumGok.bat" & chr(34), 0, False
+Set fso = CreateObject("Scripting.FileSystemObject")
+currentDir = fso.GetParentFolderName(WScript.ScriptFullName)
+WshShell.CurrentDirectory = currentDir
+WshShell.Run chr(34) & currentDir & "\실행하기.bat" & chr(34), 0, False
 Set WshShell = Nothing

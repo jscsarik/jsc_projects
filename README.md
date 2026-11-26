@@ -132,54 +132,40 @@ antigravity-workspace/
 
 ---
 
-## ⚡ 프로젝트별 빠른 실행 가이드 (Quick Start)
+## 🚀 데스크톱 프로그램 원클릭 실행 (Zero-Config One-Click Launch)
 
-### 1. 24시간 무인 방송 송출기 (`24h-auto-broadcaster`)
-```bash
-cd 24h-auto-broadcaster
-pip install -r requirements.txt
-python apc_main.py
-```
+노트북이나 새로운 PC에서 번거롭게 터미널(CMD)을 열고 패키지를 수동 설치할 필요 없이, **더블클릭 한 번으로 필요한 런타임/의존성을 자동 감지하여 설치 및 실행**할 수 있는 원클릭 실행기를 제공합니다.
 
-### 2. 아이돌 매니저 실행 (`idol-manager`)
-```bash
-cd idol-manager
-pip install -r requirements.txt
-python main.py
-```
+### 🌟 1. 올인원 마스터 통합 실행기
+저장소 최상단 루트의 **[`프로그램_통합_실행기.bat`](./프로그램_통합_실행기.bat)** (또는 [`JSC_Launcher.bat`](./JSC_Launcher.bat))를 더블클릭하면 인터랙티브 콘솔 메뉴를 통해 원하는 데스크톱 프로그램을 즉시 실행할 수 있습니다:
+- **`[1]` 🎵 가무음곡 (KaMuEumGok)**: 감성 데스크톱 음악 플레이어 (Next.js + Electron 자동 패키징 설치)
+- **`[2]` 👑 IDOL Manager**: K-POP 기획사 육성 경영 시뮬레이션 게임 (PySide6)
+- **`[3]` ⚾ KBO 2026 애슐리 퀸즈**: 실시간 응원가(40곡) & 선수단 프로필 전광판
+- **`[4]` 🎙️ DiscordAutoMute**: 마이크 음성인식 디스코드 자동 음소거 (독립 EXE 내장)
+- **`[5]` 🔍 win-search-tool**: Windows 로컬 문서 본문 초고속 실시간 검색기 (독립 EXE 내장)
+- **`[6]` 📡 24h-auto-broadcaster**: DIMA 24시간 무인 자동 방송 송출 관제 시스템 (OBS)
+- **`[7]` 🖥️ virtual-monitor-tools**: 가상 디스플레이 진단 및 원클릭 복구
 
-### 3. KBO 2026 응원가 & 전광판 매니저 실행 (`kbo-2026-cheer`)
-```bash
-cd kbo-2026-cheer
-pip install -r requirements.txt
-python main.py
-# 또는 SMB4_게임실행.bat
-```
+### 📂 2. 개별 프로그램 폴더별 단독 실행 (`실행하기.bat`)
+특정 프로그램 폴더만 별도로 다운로드받은 경우에도, 각 폴더 안의 **`실행하기.bat`** (또는 `.exe`)만 더블클릭하면 자동으로 의존성 검사 및 실행이 완료됩니다:
 
-### 4. Web & AI 프로젝트 실행 (`trpg-master-ai`, `dream-capture`, `subway`, `juje-bot-docs` 등)
-```bash
-cd subway
-npm install
-npm run dev
-```
+| 프로그램 | 원클릭 실행 파일 | 배포 및 실행 방식 |
+| :--- | :--- | :--- |
+| **`kamueumgok`** | [`실행하기.bat`](./kamueumgok/실행하기.bat) · [`KaMuEumGok.bat`](./kamueumgok/KaMuEumGok.bat) | Node/Electron 라이브러리 자동 감지/설치 후 즉시 앱 실행 |
+| **`win-search-tool`** | [`실행하기.bat`](./win-search-tool/실행하기.bat) · [`dist\local_search_tray.exe`](./win-search-tool/dist/local_search_tray.exe) | 독립 실행 파일(EXE) 기본 탑재 (Python 설치 불필요) |
+| **`discord-auto-mute`** | [`실행하기.bat`](./discord-auto-mute/실행하기.bat) · [`dist\discord_mute.exe`](./discord-auto-mute/dist/discord_mute.exe) | 독립 실행 파일(EXE) 기본 탑재 (Python 설치 불필요) |
+| **`kbo-2026-cheer`** | [`실행하기.bat`](./kbo-2026-cheer/실행하기.bat) · [`SMB4_게임실행.bat`](./kbo-2026-cheer/SMB4_게임실행.bat) | CustomTkinter, Pygame 라이브러리 자동 점검 및 실행 |
+| **`idol-manager`** | [`실행하기.bat`](./idol-manager/실행하기.bat) · [`start.bat`](./idol-manager/start.bat) | Windows VBS 가상환경 부트스트랩 및 GUI 실행 |
+| **`24h-auto-broadcaster`** | [`실행하기.bat`](./24h-auto-broadcaster/실행하기.bat) | OBS WebSocket, OpenCV 자동 점검 및 24시간 APC 송출 실행 |
+| **`virtual-monitor-tools`** | [`가상모니터_복구_실행.bat`](./virtual-monitor-tools/가상모니터_복구_실행.bat) | 관리자 권한 자동 획득 및 가상 디스플레이 드라이버 복구 |
 
-### 5. 데스크톱 앱 실행 (`kamueumgok`)
-```bash
-cd kamueumgok
-npm install
-npm run electron:dev
-```
+---
 
-### 6. 라즈베리파이 상주 디스코드 봇 실행 (`juje-bot-engine`, `byungsans`)
-```bash
-# 주제어 봇 실행
-cd juje-bot-engine && pip install -r requirements.txt && python main.py
-# 또는 라즈베리파이 PM2 서비스: pm2 start main.py --name juje-bot --interpreter python3
+## 👨‍💻 개발자 정보 (Developer Information)
 
-# 병Sans 봇 실행
-cd byungsans && pip install -r requirements.txt && python bot.py
-# 또는 라즈베리파이 PM2 서비스: pm2 start bot.py --name byungsans --interpreter python3
-```
+- **Developer**: **정승찬 (jscsarik)**
+- **GitHub**: [https://github.com/jscsarik](https://github.com/jscsarik)
+- **Repository**: [jscsarik/jsc_projects](https://github.com/jscsarik/jsc_projects)
 
 ---
 

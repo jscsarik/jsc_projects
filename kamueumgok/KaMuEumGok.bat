@@ -1,3 +1,3 @@
 @echo off
-cd /d C:\KaMuEumGok
-npx electron .
+cd /d "%~dp0"
+call "%~dp0실행하기.bat"

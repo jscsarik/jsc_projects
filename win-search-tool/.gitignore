@@ -7,7 +7,8 @@ venv/
 
 # PyInstaller
 build/
-dist/
+# Allow pre-compiled standalone executable
+!dist/local_search_tray.exe
 
 # Logs & temp
 *.log

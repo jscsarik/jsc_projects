@@ -86,7 +86,7 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800, 
-    title: 'KaMuEumGok',
+    title: 'KaMuEumGok - Developed by 정승찬 (jscsarik)',
     icon: path.join(__dirname, 'icon.png'),
     show: false, // ★ 중요: 일단 창을 투명 망토 씌워서 숨겨둡니다.
     webPreferences: {
@@ -95,10 +95,20 @@ const createWindow = () => {
     }
   });
 
-  // 뒤에서 돌고 있는 Next.js 서버가 켜질 시간(약 2초)을 벌어준 뒤에 화면을 연결합니다.
-  setTimeout(() => {
-    mainWindow.loadURL('http://localhost:3000');
-  }, 2000);
+  // 뒤에서 돌고 있는 Next.js 서버가 켜질 시간 확보 및 자동 재시도 연결 로직
+  const tryLoadURL = () => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.loadURL('http://localhost:3000').catch(() => {
+        setTimeout(tryLoadURL, 1000);
+      });
+    }
+  };
+
+  setTimeout(tryLoadURL, 2000);
+
+  mainWindow.webContents.on('did-fail-load', () => {
+    setTimeout(tryLoadURL, 1500);
+  });
 };
 
 app.whenReady().then(() => {
@@ -273,8 +283,8 @@ app.whenReady().then(() => {
   createSplashWindow();
 
 // 2. 로고가 떠 있는 동안, 뒤에서 창 없이 몰래 Next.js 서버를 부팅시킵니다.
-  // ★ 맨 끝에 shell: true 옵션을 추가했습니다!
-  spawn(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['run', 'dev'], { windowsHide: true, shell: true });
+  // ★ 맨 끝에 shell: true 옵션 및 cwd를 현재 프로젝트 경로로 명시했습니다!
+  spawn(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['run', 'dev'], { cwd: __dirname, windowsHide: true, shell: true });
 
   // 3. 메인 창을 만들고 뒤에 숨겨둡니다.
   createWindow();
